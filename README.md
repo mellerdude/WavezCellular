@@ -25,3 +25,7 @@ Appearance's features:
 2. Splash animation 
 
 3. Lottie animation
+
+
+Video:
+https://drive.google.com/file/d/1pERoL6I3MRKTIPAkjmCabiDmZf0-Fs5m/view?usp=sharing
