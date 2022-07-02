@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "111036905777",
+    "project_id": "wavez-d9c95",
+    "storage_bucket": "wavez-d9c95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111036905777:android:bbf5a5f84a0ccfa691d810",
+        "android_client_info": {
+          "package_name": "com.adi.wavezcellular"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111036905777-qinhj4b0un26eb0qvmvd320aq9krn0id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3FzleZLBdWV9iMS3XILencdTaFYw8EKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111036905777-qinhj4b0un26eb0qvmvd320aq9krn0id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

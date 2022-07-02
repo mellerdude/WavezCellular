@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.WelcomeActivity"
+    android:background="@drawable/ic_background">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shapes"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/welcome_TXT_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/black"
+            android:text="@string/welcome_title"
+            android:textColor="@color/blue_back"
+            android:textSize="40dp"
+            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+
+
+        <LinearLayout
+            android:id="@+id/welcome_LinLay_signin"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/welcome_EDT_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/welcome_name"
+                android:inputType="textWebEditText"
+                android:textColor="@color/blue_text"
+                android:textColorHint="@color/blue_text"
+                android:textStyle="bold"
+                android:visibility="invisible">
+
+            </EditText>
+
+
+            <EditText
+                android:id="@+id/welcome_EDT_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="@string/welcome_email"
+                android:inputType="textWebEmailAddress"
+                android:textColor="@color/blue_text"
+                android:textColorHint="@color/blue_text"
+                android:textStyle="bold"
+                android:visibility="invisible">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/welcome_EDT_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="@string/welcome_password"
+                android:inputType="textWebPassword"
+                android:textColor="@color/blue_text"
+                android:textColorHint="@color/blue_text"
+                android:textStyle="bold"
+                android:visibility="invisible"></EditText>
+
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_BTN_signIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1D31CD"
+            android:text="@string/welcome_signin"
+            android:textColor="@color/beige_back"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_BTN_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue_logo"
+            android:text="@string/welcome_signup"
+            android:textColor="@color/beige_back"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <LinearLayout
+            android:id="@+id/welcome_LinLay_finalAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/welcome_BTN_enterApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="@color/blue_back"
+                    android:text="@string/welcome_login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/beige_back"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible">
+
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/welcome_BTN_registerApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="@color/blue_back"
+                    android:text="@string/welcome_register"
+                    android:textAllCaps="false"
+                    android:textColor="@color/beige_back"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible">
+
+                </com.google.android.material.button.MaterialButton>
+
+            </FrameLayout>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/welcome_BTN_forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/blue_back"
+                android:text="@string/welcome_forgot_password"
+                android:textColor="@color/beige_back"
+                android:textAllCaps="false"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                android:visibility="invisible">
+
+            </com.google.android.material.button.MaterialButton>
+
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_BTN_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/blue_logo"
+            android:text="@string/welcome_back"
+            android:textColor="@color/beige_back"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="invisible">
+
+        </com.google.android.material.button.MaterialButton>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
