@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Wavez</string>
+    <string name="welcome_title">Welcome to Wavez</string>
+    <string name="welcome_signin">Sign In</string>
+    <string name="welcome_signup">Sign up</string>
+    <string name="welcome_name">Full Name</string>
+    <string name="welcome_email">Email</string>
+    <string name="welcome_password">Password</string>
+    <string name="welcome_forgot_password">Forgot Password?</string>
+    <string name="welcome_login">Login</string>
+    <string name="welcome_register">Register</string>
+    <string name="welcome_back">Back</string>
+
+    <string name="home_show">Show</string>
+    <string name="home_report">Report</string>
+    <string name="home_search">Search</string>
+
+    <string-array name="beaches">
+        <item>Mei Ami beach Ashdod</item>
+        <item>Lido beach Ashdod</item>
+        <item>Oranim beach Ashdod</item>
+        <item>HaKshatot beach Ashdod</item>
+        <item>Tet Vav beach Ashdod</item>
+        <item>Yud Alef beach Ashdod</item>
+        <item>Gils beach Ashdod</item>
+        <item>Separate beach Ashdod</item>
+    </string-array>
+
+    <string name="user_change_name">Change Name</string>
+    <string name="user_signout">Sign Out</string>
+
+    <string name="report_density">Density</string>
+    <string name="report_jellyfish">JellyFish</string>
+    <string name="report_flag">Flag</string>
+    <string name="report_wave">Wave</string>
+    <string name="report_temperature">Temperature</string>
+    <string name="report_wind">Wind</string>
+    <string name="report_cancel">Cancel</string>
+    <string name="report_ok">Ok Report</string>
+
+
+</resources>
