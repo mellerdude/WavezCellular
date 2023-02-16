@@ -25,8 +25,9 @@ public class ShowActivity extends AppCompatActivity {
 
     private MaterialButton show_BTN_back;
     private ImageView show_IMG_profile;
-    private MaterialTextView show_TXT_nameBeach,show_TXT_density,show_TXT_wave,show_TXT_jellyfish,show_TXT_temperature,
+    private MaterialButton show_TXT_density,show_TXT_wave,show_TXT_jellyfish,
             show_TXT_flag,show_TXT_wind;
+    private MaterialTextView show_TXT_nameBeach,show_TXT_temperature;
 
     private Bundle bundle;
     private String BeachName;
