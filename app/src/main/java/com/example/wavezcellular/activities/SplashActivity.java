@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void replaceActivity() {
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
