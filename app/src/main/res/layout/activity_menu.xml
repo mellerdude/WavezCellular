@@ -65,15 +65,26 @@
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="false"
-                    android:text="Gils Beach"
+                    android:text="Gils beach Ashdod"
                     app:backgroundTint="@color/white"
                     android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/menu_TXT_Distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Beach is 2.7 km from you"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    >
+
+                </TextView>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_BTN_beachdetails"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="false"
@@ -112,6 +123,8 @@
                     android:textSize="18sp"
                     app:backgroundTint="@color/sea"
                     />
+
+
 
             </LinearLayout>
         </LinearLayout>

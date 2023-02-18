@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -33,7 +34,13 @@ public class SplashActivity extends AppCompatActivity {
     public void showViewSlideDown(final View v) {
         v.setVisibility(View.VISIBLE);
         Path path = new Path();
-        path.arcTo(0f, 0f, 400f, 500f, 270f, -180f, true);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        path.arcTo(0f, 0f, width/2f , height/3f, 270f, -180f, true);
         ObjectAnimator animator = ObjectAnimator.ofFloat(v, View.X, View.Y, path);
         animator.setDuration(ANIM_DURATION);
         animator.start();

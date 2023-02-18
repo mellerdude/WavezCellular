@@ -33,14 +33,27 @@
                 tools:ignore="MissingConstraints" />
 
 
-            <ImageView
-                android:id="@+id/show_IMG_profile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_user"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="MissingConstraints" />
 
+            <RatingBar
+                android:id="@+id/userReports_IMG_review1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:numStars="5"
+                android:rating="3"
+                android:scaleX=".5"
+                android:scaleY=".5"
+                android:isIndicator="true"
+                android:progressTint="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/welcome_LOGO_wavez"
+                app:layout_constraintEnd_toStartOf="@+id/show_IMG_profile"
+                tools:ignore="MissingConstraints"></RatingBar>
+                        <ImageView
+                            android:id="@+id/show_IMG_profile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_user"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,7 +70,7 @@
                 android:id="@+id/show_BTN_back"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/water"
@@ -70,10 +83,9 @@
                 android:id="@+id/show_TXT_nameBeach"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_weight="4"
-                android:gravity="start"
+                android:layout_weight="4.5"
+                android:gravity="center"
                 android:text="Gils Beach"
                 android:textColor="@color/sand"
                 android:textColorHighlight="@color/white"
@@ -101,6 +113,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/show_TXT_distance"
                     android:layout_width="wrap_content"
@@ -111,23 +124,34 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/show_IMG_weatherIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/sun" />
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/show_TXT_temperature"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="26°c"
                         android:textColor="@color/black"
-                        android:textSize="50sp"></com.google.android.material.textview.MaterialTextView>
+                        android:textSize="40sp"></com.google.android.material.textview.MaterialTextView>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/show_IMG_weatherIcon"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:visibility="visible"
-                        app:srcCompat="@drawable/sun" />
+
+
+<!--                    <RatingBar-->
+<!--                        android:id="@+id/userReports_IMG_review1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:numStars="5"-->
+<!--                        android:rating="5"-->
+<!--                        android:scaleX=".5"-->
+<!--                        android:scaleY=".5"-->
+<!--                        tools:ignore="MissingConstraints"></RatingBar>-->
 
                 </LinearLayout>
 
@@ -192,6 +216,8 @@
                     app:iconTint="@null"
                     android:visibility="invisible"
                     />
+
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/show_TXT_jellyfish"
