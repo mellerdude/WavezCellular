@@ -97,7 +97,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     //redirect to rest of application
                     Toast.makeText(WelcomeActivity.this,"success",Toast.LENGTH_LONG).show();
-                    replaceActivity();
+                    replaceActivityEnter();
                 }else{
                     Toast.makeText(WelcomeActivity.this,"Failed to login! please cheak your credentials",Toast.LENGTH_LONG).show();
                 }
@@ -190,7 +190,7 @@ public class WelcomeActivity extends AppCompatActivity {
         welcome_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openingMode();
+                replaceActivityBack();
             }
         });
 
@@ -254,8 +254,14 @@ public class WelcomeActivity extends AppCompatActivity {
         welcome_BTN_registerApp =findViewById(R.id.welcome_BTN_registerApp);
     }
 
-    private void replaceActivity() {
+    private void replaceActivityEnter() {
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void replaceActivityBack() {
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
         finish();
     }
