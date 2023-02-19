@@ -2,42 +2,19 @@ package com.example.wavezcellular.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.wavezcellular.R;
-import com.example.wavezcellular.fragments.MapFragment;
-import com.example.wavezcellular.utils.Beach;
-import com.example.wavezcellular.utils.User;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,16 +23,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener{
+public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private ImageView home_IMG_profile, home_IMG_search;
-    private MaterialButton home_BTN_show, home_BTN_report;
+    private ImageView home_IMG_profile;
+    //private MaterialButton home_BTN_show;
+    //private MaterialButton home_BTN_report;
+    private MaterialButton[] home_BTN_searches;
+    private MaterialButton[] home_BTN_results;
     private Spinner home_SP_listOfBeaches;
     private ArrayAdapter<CharSequence> adapter;
 
@@ -64,15 +49,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DatabaseReference myRef;
 
     //map
-    private boolean hasPremission;
-    private MapFragment mapFragment;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    private GoogleMap googleMap;
 
     private String beachName;
     private Bundle bundle = null;
+    private final int MAX_SEARCH = 5;
 
+    int pressed;
 
 
 
@@ -80,46 +62,93 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_upgrade);
+        bundle = getIntent().getExtras();
         if (bundle == null){
             bundle = new Bundle();
         }
         findViews();
 
-
         firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
-
-        loadMapFragment();
         createSpinner();
-        checkPermission();
         createListener();
 
 
-        if (hasPremission) {
-            if (checkGooglePlayServices()) {
-                SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-                getSupportFragmentManager().beginTransaction().add(R.id.home_FRL_map, supportMapFragment).commit();
-                supportMapFragment.getMapAsync(this);
-                checkLocation();
-            } else {
-                Toast.makeText(this, "Google Play services Unavaliable", Toast.LENGTH_LONG).show();
-            }
-        }
-
     }
 
-    private void beachesInfo(Beach beach) {
+    private void createBeaches(ArrayList<Map.Entry<String,Double>> list) {
+        for (int i = 0; i< MAX_SEARCH; i++){
+            String format = String.format("%.01f", list.get(i).getValue());
+            String result =   format ;
+            String beachName = list.get(i).getKey().toString();
+            home_BTN_searches[i].setText(beachName);
+            home_BTN_results[i].setText(result);
+            home_BTN_searches[i].setVisibility(View.VISIBLE);
+        }
+    }
 
+    private void createBeaches(String parameter, ArrayList<String> list) {
+        for (int i = 0; i< MAX_SEARCH; i++){
+            String beachName = list.get(i).toString();
+            home_BTN_searches[i].setText(beachName);
+            home_BTN_searches[i].setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void getBeaches(String value) {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.hasChild(beach.getName())) {
-                    //do nothing
-                }else{
-                    myRef.child(beach.getName()).setValue(beach);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                HashMap<String,Double> beachesSort = new HashMap<>();
+                HashMap<String, HashMap<String,Object>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
+                if(value.equalsIgnoreCase("distance")) {
+                    double userLat = (double) bundle.get("x");
+                    double userLon = (double) bundle.get("y");
+                    LatLng user = new LatLng(userLat,userLon);
+                    for (Map.Entry<String, HashMap<String, Object>> set :
+                            beaches.entrySet()) {
+                        String beachName = (String) set.getValue().get("name");
+                        LatLng loc = new LatLng((Double) set.getValue().get("latitude"), (Double)set.getValue().get("longitude"));
+                        Double val = getDistance(user,loc);
+                        beachesSort.put(beachName, val);
+
+                    }
+                }else if(value.equalsIgnoreCase("name")){
+                    ArrayList<String> list = new ArrayList<>();
+                    for (Map.Entry<String, HashMap<String, Object>> set :
+                            beaches.entrySet()) {
+                        String beachName = (String) set.getValue().get("name");
+                        list.add(beachName);
+                    }
+                    Collections.sort(list);
+                    createBeaches(value,list);
                 }
-            }
+                else{
+                    for (Map.Entry<String, HashMap<String, Object>> set :
+                            beaches.entrySet()) {
+                        String beachName = (String) set.getValue().get("name");
+                        Long l = (Long) set.getValue().get(value);
+                        double val = (double)l;
+                        beachesSort.put(beachName, val);
+                    }
+                }
+                if(!value.equalsIgnoreCase("name")) {
+                    ArrayList<Map.Entry<String, Double>> list = new ArrayList<>(beachesSort.entrySet());
+
+                    Comparator<Map.Entry<String, Double>> valueComparator = new Comparator<Map.Entry<String, Double>>() {
+                        @Override
+                        public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                            return o1.getValue().compareTo(o2.getValue());
+                        }
+
+                    };
+                    Collections.sort(list, valueComparator);
+                    createBeaches(list);
+                }
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -128,37 +157,53 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+
+
+
     private void createListener(){
-        home_IMG_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceActivity("Profile");
-            }
-        });
+        home_IMG_profile.setOnClickListener(view -> replaceActivity("Profile"));
 
-        home_BTN_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceActivity("Report");
-            }
-        });
+        for (int i =0; i<MAX_SEARCH;i++){
+            pressed = i;
+            home_BTN_searches[i].setOnClickListener(view -> clickedBeach(pressed));
+        }
 
-        home_BTN_show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceActivity("Show");
-            }
-        });
+//        home_BTN_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                replaceActivity("Report");
+//            }
+//        });
+
+//        home_BTN_show.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                replaceActivity("Show");
+//            }
+//        });
     }
+
+    private void clickedBeach(int pressed) {
+        beachName = (String) home_BTN_searches[pressed].getText();
+        replaceActivity(beachName);
+    }
+
 
     private void replaceActivity(String mode) {
         Intent intent;
         if(mode.equals("Profile")){
             intent = new Intent(this, UserActivity.class);
+            intent.putExtras(bundle);
             startActivity(intent);
             finish();
         }else if(mode.equals("Report")){
             intent = new Intent(this, ReportActivity.class);
+            bundle.putString("BEACH_NAME",beachName);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        }else if(mode.contains("beach")){
+            intent = new Intent(this, ShowActivity.class);
             bundle.putString("BEACH_NAME",beachName);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -174,7 +219,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void createSpinner() {
-        adapter = ArrayAdapter.createFromResource(this,R.array.beaches, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(this,R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         home_SP_listOfBeaches.setAdapter(adapter);
         home_SP_listOfBeaches.setOnItemSelectedListener(this);
@@ -182,133 +227,85 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private boolean checkGooglePlayServices() {
-        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int result = googleApiAvailability.isGooglePlayServicesAvailable(this);
-        if (result == ConnectionResult.SUCCESS) {
-            return true;
-        } else if (googleApiAvailability.isUserResolvableError(result)) {
-            Dialog dialog = googleApiAvailability.getErrorDialog(this, result, 201, new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    Toast.makeText(HomeActivity.this, "User Canceled Dialog", Toast.LENGTH_LONG).show();
-                }
-            });
-            dialog.show();
-        }
-
-        return false;
-    }
-
-    private void loadMapFragment() {
-        //Initialize fragment
-        mapFragment = new MapFragment();
-
-        //open fragment
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.home_FRL_map, mapFragment)
-                .commit();
-
-    }
-
-    private void checkPermission() {
-        int fineLocationStatus = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        int coarseLocationStatus = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if ((fineLocationStatus != PackageManager.PERMISSION_GRANTED) &&
-                (coarseLocationStatus != PackageManager.PERMISSION_GRANTED)) {
-            hasPremission = true;
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    101);
-        } else {
-            hasPremission = true;
-        }
-
-    }
-
-    private void checkLocation() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // locationListener = location -> findLocation();
-    }
 
     private void findViews() {
         home_IMG_profile = findViewById(R.id.home_IMG_profile);
-        home_IMG_search = findViewById(R.id.home_IMG_search);
-        home_BTN_show = findViewById(R.id.home_BTN_show);
-        home_BTN_report = findViewById(R.id.home_BTN_report);
+//        home_BTN_show = findViewById(R.id.home_BTN_show);
+//        home_BTN_report = findViewById(R.id.home_BTN_report);
         home_SP_listOfBeaches = findViewById(R.id.home_SP_listOfBeaches);
+        home_BTN_searches = new MaterialButton[]{
+                findViewById(R.id.home_BTN_searchBeach1),
+                findViewById(R.id.home_BTN_searchBeach2),
+                findViewById(R.id.home_BTN_searchBeach3),
+                findViewById(R.id.home_BTN_searchBeach4),
+                findViewById(R.id.home_BTN_searchBeach5)
 
-    }
+        };
 
-    @Override
-    public void onMapReady(@NonNull GoogleMap map) {
-        //when map is loaded
-        this.googleMap = map;
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(true);
-        googleMap.getUiSettings().setZoomGesturesEnabled(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        googleMap.setMyLocationEnabled(true);
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(@NonNull LatLng latLng) {
-                // when clicked on map
-                //Intialized marker options
-                MarkerOptions markerOptions = new MarkerOptions();
-                //Set position of marker
-                markerOptions.position(latLng);
-                //Set title of markr
-                markerOptions.title(latLng.latitude+":"+latLng.longitude);
-                //remove all marker
-                googleMap.clear();
-                //animationg to zoom the marker
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
-                //add marker on map
-                googleMap.addMarker(markerOptions);
-            }
-        });
+        home_BTN_results = new MaterialButton[]{
+                findViewById(R.id.home_BTN_result1),
+                findViewById(R.id.home_BTN_result2),
+                findViewById(R.id.home_BTN_result3),
+                findViewById(R.id.home_BTN_result4),
+                findViewById(R.id.home_BTN_result5)
+
+        };
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        String location = adapterView.getItemAtPosition(position).toString();
-        beachName = location;
-        Geocoder geocoder = new Geocoder(HomeActivity.this,Locale.getDefault());
-        try {
-            List<Address> listAddress = geocoder.getFromLocationName(location,1);
-            if(listAddress.size()>0){
-                double latit = listAddress.get(0).getLatitude();
-                double logi = listAddress.get(0).getLongitude();
-                Beach beach = new Beach(location,latit,logi);
-                beachesInfo(beach);
-                LatLng latLng = new LatLng(latit,logi);
-                addMarkerToMap(latLng,location);
-            }
+        String parameter = adapterView.getItemAtPosition(position).toString();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        int i = parameter.indexOf(' ');
+        String word = parameter.substring(0, i);
+        getBeaches(word);
+    }
+
+
+
+
+
+    public void setItemsWhenEmpty() {
+        adapter = ArrayAdapter.createFromResource(this,R.array.beaches, android.R.layout.simple_spinner_item);
+        for (int i=0;i<adapter.getCount();i++) {
+            String location = adapter.getItem(i).toString();
+            beachName = location;
+            Geocoder geocoder = new Geocoder(HomeActivity.this, Locale.getDefault());
+            try {
+                List<Address> listAddress = geocoder.getFromLocationName(location, 1);
+                if (listAddress.size() > 0) {
+                    double latit = listAddress.get(0).getLatitude();
+                    double logi = listAddress.get(0).getLongitude();
+                    myRef.child(location).child("latitude").setValue(latit);
+                    myRef.child(location).child("longitude").setValue(logi);
+                    myRef.child(location).child("name").setValue(beachName);
+                    myRef.child(location).child("review").setValue((Double)3.0);
+                    myRef.child(location).child("warmth").setValue((Double)3.0);
+                    myRef.child(location).child("danger").setValue((Double)3.0);
+                    myRef.child(location).child("wind").setValue((Double)3.0);
+                    myRef.child(location).child("jellyfish").setValue((Double)3.0);
+                    myRef.child(location).child("density").setValue((Double)3.0);
+                    myRef.child(location).child("dog").setValue((Double)3.0);
+                    myRef.child(location).child("accessible").setValue((Double)3.0);
+                    myRef.child(location).child("hygiene").setValue((Double)3.0);
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
-    public void addMarkerToMap(LatLng latlng,String location){
-        MarkerOptions marker = new MarkerOptions();
-        marker.title(location+"");
-        marker.position(latlng);
-        googleMap.addMarker(marker);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng,15);
-        googleMap.animateCamera(cameraUpdate);
+    private double getDistance(LatLng location1, LatLng location2){
+        return (SphericalUtil.computeDistanceBetween(location1,location2)/1000);
     }
+
 }

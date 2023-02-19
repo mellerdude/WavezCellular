@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.Beach;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,7 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.SphericalUtil;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MenuActivity extends AppCompatActivity {
@@ -42,45 +45,28 @@ public class MenuActivity extends AppCompatActivity {
     private TextView menu_TXT_Distance;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean hasPremission;
-    private String distance;
+    public static String distance = "";
     private double longi = 0;
     private double lati = 0;
     private Bundle bundle = null;
+    public static String maxBeach = "";
     private int open = 0;
+    private Double x;
+    private Double y;
 
     private LocationManager locationManager;
 
     private FirebaseUser firebaseUserUser;
     private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkPermission();
         setContentView(R.layout.activity_menu);
         findViews();
-        checkPermission();
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if(location != null){
-                    lati = location.getLatitude();
-                    longi = location.getLongitude();
-                    findNearestBeach(lati,longi);
-                    menu_TXT_Distance.setText(distance);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                distance = "" + 0 + "," + 0;
-            }
-        });
-
-        //;
         setListeners();
-
-        if (bundle == null){
+        if (bundle == null) {
             bundle = new Bundle();
         }
 
@@ -88,55 +74,71 @@ public class MenuActivity extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
 
 
-    }
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        lati = location.getLatitude();
+                        longi = location.getLongitude();
+                        findNearestBeach(lati, longi);
+                        bundle.putDouble("x", lati);
+                        bundle.putDouble("y", longi);
+
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    maxBeach = "Location Services not working";
+                    distance = "" + 0 + "," + 0;
+                }
+            });
+        }
+
 
     private void findNearestBeach(double lati, double longi) {
-        LatLng user = new LatLng(lati,longi);
-        String[] beaches;
-        double maxDistance = 0;
-        double currDistance = 0;
-        double x =0,y=0;
-        beaches = getResources().getStringArray(R.array.beaches);
-        for (int i=0; i<beaches.length; i++){
-            String beachName = beaches[i];
-            DatabaseReference refX = myRef.child(beachName).child("latitude");
-            DatabaseReference refY = myRef.child(beachName).child("longitude");
-            refX.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Double x = Double.parseDouble(Objects.requireNonNull(dataSnapshot.getValue(String.class)));
+        LatLng user = new LatLng(lati, longi);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                double minDistance = 100000;
 
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            refY.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Double y = Double.parseDouble(Objects.requireNonNull(dataSnapshot.getValue(String.class)));
-
+                double currDistance = 100000;
+                HashMap<String,HashMap<String,Object>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
+                System.out.println("Stop");
+                for (Map.Entry<String, HashMap<String,Object>> set :
+                        beaches.entrySet()) {
+                    double x,y;
+                    String beachName = (String) set.getValue().get("name");
+                    x = (double) set.getValue().get("latitude");
+                    y = (double) set.getValue().get("longitude");
+                    LatLng location = new LatLng(x,y);
+                    currDistance = getDistance(user,location);
+                    if(currDistance<minDistance) {
+                        minDistance = currDistance;
+                        maxBeach = beachName;
+                    }
 
                 }
+                String format = String.format("%.01f", minDistance);
+                distance = "Beach is " + format +"km from you";
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                menu_TXT_Distance.setText(distance);
+                menu_BTN_beachFound.setText(maxBeach);
 
-                }
-            });
-            LatLng beachLoc = new LatLng(x,y);
-            currDistance = getDistance(user,beachLoc);
-            if(currDistance>maxDistance)
-                maxDistance = currDistance;
-        }
-        menu_TXT_Distance.setText("You're " + maxDistance + "km from the beach");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
-
-
     private void setListeners() {
         menu_BTN_beachdetails.setOnClickListener(view->{
             replaceActivityShow();
@@ -202,7 +204,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private double getDistance(LatLng location1, LatLng location2){
-        return SphericalUtil.computeDistanceBetween(location1,location2);
+        return (SphericalUtil.computeDistanceBetween(location1,location2)/1000);
     }
 
 

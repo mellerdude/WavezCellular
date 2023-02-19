@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <View
-                android:id="@+id/welcome_LOGO_wavez"
+                android:id="@+id/home_LOGO_wavez"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/wave_icon"
@@ -31,7 +31,7 @@
 
 
             <ImageView
-                android:id="@+id/show_IMG_profile"
+                android:id="@+id/home_IMG_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_user"
@@ -65,7 +65,6 @@
 
             </Spinner>
 
-
             <ImageView
                 android:id="@+id/home_IMG_search"
                 android:layout_width="match_parent"
@@ -80,11 +79,11 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/show_TXT_parameterTXT"
+            android:id="@+id/home_TXT_parameterTXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Beaches near you (10 best results)"
+            android:text="Beaches near you (5 best results)"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -98,27 +97,187 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_BTN_searchBeach1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gils Beach 2.7km"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    app:backgroundTint="@color/sea" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_BTN_searchBeach2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gils Beach 2.7km"
-                    android:textAlignment="center"
+                    android:id="@+id/home_BTN_searchBeach1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Beach name"
+                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="25sp"
-                    app:backgroundTint="@color/sea" />
+                    app:backgroundTint="@color/sea"
+                    android:visibility="visible"
+                    android:layout_weight="3"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/home_BTN_result1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="2.7km"
+                    android:textAlignment="textEnd"
+                    android:textAllCaps="false"
+                    android:textColor="@color/blue_text_card"
+                    android:textSize="20sp"
+                    app:backgroundTint="@color/white"
+                    android:visibility="visible"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_searchBeach2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Beach name"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:backgroundTint="@color/sea"
+                        android:visibility="visible"
+                        android:layout_weight="3"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_result2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="2.7km"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue_text_card"
+                        android:textSize="20sp"
+                        app:backgroundTint="@color/white"
+                        android:visibility="visible"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_searchBeach3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Beach name"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:backgroundTint="@color/sea"
+                        android:visibility="visible"
+                        android:layout_weight="3"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_result3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="2.7km"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue_text_card"
+                        android:textSize="20sp"
+                        app:backgroundTint="@color/white"
+                        android:visibility="visible"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_searchBeach4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Beach name"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:backgroundTint="@color/sea"
+                        android:visibility="visible"
+                        android:layout_weight="3"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_result4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="2.7km"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue_text_card"
+                        android:textSize="20sp"
+                        app:backgroundTint="@color/white"
+                        android:visibility="visible"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_searchBeach5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Beach name"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:backgroundTint="@color/sea"
+                        android:visibility="visible"
+                        android:layout_weight="3"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_BTN_result5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="2.7km"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue_text_card"
+                        android:textSize="20sp"
+                        app:backgroundTint="@color/white"
+                        android:visibility="visible"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+
+
+
+
+
+
 
 
             </LinearLayout>
@@ -139,7 +298,8 @@
                 android:text="Select Beach"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/sea"
-                app:cornerRadius="40dp">
+                app:cornerRadius="40dp"
+                android:visibility="invisible">
 
             </com.google.android.material.button.MaterialButton>
 
