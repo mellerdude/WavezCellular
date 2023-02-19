@@ -1,15 +1,21 @@
 package com.example.wavezcellular.utils;
 
+import java.util.Comparator;
+
 public class Beach {
     private String name;
     private double longitude;
     private double latitude;
-    private String density;
-    private String jellyfish;
-    private String flag;
-    private String wave;
-    private String temperature;
-    private String wind;
+    private double density;
+    private double jellyfish;
+    private double flag;
+    private double wave;
+    private double temperature;
+    private double wind;
+    private double warmth;
+    private double dog;
+    private double accessible;
+    private double review;
 
     public Beach(){
 
@@ -19,59 +25,96 @@ public class Beach {
         this.name = name;
         this.longitude = lon;
         this.latitude = lat;
-        density = "";
-        jellyfish = "";
-        flag = "";
-        wave = "";
-        temperature = "";
-        wind = "";
+        density = 3;
+        jellyfish = 3;
+        flag = 3;
+        wave = 3;
+        temperature = 3;
+        wind = 3;
+        review = 3;
+        dog = 3;
+        accessible = 3;
+        warmth = 3;
     }
 
-    public String getDensity() {
+
+    public double getWarmth() {
+        return warmth;
+    }
+
+    public void setWarmth(double warmth) {
+        this.warmth = warmth;
+    }
+
+    public double getDog() {
+        return dog;
+    }
+
+    public void setDog(double dog) {
+        this.dog = dog;
+    }
+
+    public double getAccessible() {
+        return accessible;
+    }
+
+    public void setAccessible(double accessible) {
+        this.accessible = accessible;
+    }
+
+    public double getReview() {
+        return review;
+    }
+
+    public void setReview(double review) {
+        this.review = review;
+    }
+
+    public double getDensity() {
         return density;
     }
 
-    public void setDensity(String density) {
+    public void setDensity(double density) {
         this.density = density;
     }
 
-    public String getJellyfish() {
+    public double getJellyfish() {
         return jellyfish;
     }
 
-    public void setJellyfish(String jellyfish) {
+    public void setJellyfish(double jellyfish) {
         this.jellyfish = jellyfish;
     }
 
-    public String getFlag() {
+    public double getFlag() {
         return flag;
     }
 
-    public void setFlag(String flag) {
+    public void setFlag(double flag) {
         this.flag = flag;
     }
 
-    public String getWave() {
+    public double getWave() {
         return wave;
     }
 
-    public void setWave(String wave) {
+    public void setWave(double wave) {
         this.wave = wave;
     }
 
-    public String getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    public String getWind() {
+    public double getWind() {
         return wind;
     }
 
-    public void setWind(String wind) {
+    public void setWind(double wind) {
         this.wind = wind;
     }
 

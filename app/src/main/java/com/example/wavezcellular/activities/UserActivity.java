@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,6 +32,7 @@ public class UserActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private String userID;
     private User user;
+    private Bundle bundle;
 
 
 
@@ -40,6 +40,10 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        bundle = getIntent().getExtras();
+        if (bundle == null){
+            bundle = new Bundle();
+        }
         findViews();
         createListener();
         getCurrentUsersData();
@@ -51,6 +55,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserActivity.this, HomeActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
             }

@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ReportActivity extends AppCompatActivity {
+public class ReportActivityLegacy extends AppCompatActivity {
     private TextView report_TXT_nameBeach;
     private MaterialButton report_BTN_back;
     private ImageView report_IMG_profile;
@@ -38,21 +38,21 @@ public class ReportActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
 
     //density
-    private double density = 3;
+    private String density = "";
     ImageView density_IMG_toocrowded,density_IMG_fewpeople,density_IMG_empty;
     TextView density_TXT_toocrowded,density_TXT_fewpeople,density_TXT_empty;
     LinearLayout density_LinLay_toocrowded,density_LinLay_fewpeople,density_LinLay_empty;
     MaterialButton density_BTN_cancel,density_BTN_ok;
 
     //flag
-    private double flag = 3;
+    private String flag;
     ImageView flag_IMG_red,flag_IMG_white,flag_IMG_black;
     TextView flag_TXT_red,flag_TXT_white,flag_TXT_black;
     LinearLayout flag_LinLay_red,flag_LinLay_white,flag_LinLay_black;
     MaterialButton flag_BTN_cancel,flag_BTN_ok;
 
     //temperature
-    private double temperature = 3;
+    private String temperature;
     private MaterialButton temperature_BTN_toohot,temperature_BTN_hot,temperature_BTN_pleasant,
             temperature_BTN_cold,temperature_BTN_misty,temperature_BTN_windy,
             temperature_BTN_cancel,temperature_BTN_ok;
@@ -81,7 +81,7 @@ public class ReportActivity extends AppCompatActivity {
         report_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, HomeActivity.class);
+                Intent intent = new Intent(ReportActivityLegacy.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -89,7 +89,7 @@ public class ReportActivity extends AppCompatActivity {
         report_IMG_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, UserActivity.class);
+                Intent intent = new Intent(ReportActivityLegacy.this, UserActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -163,38 +163,38 @@ public class ReportActivity extends AppCompatActivity {
         temperature_BTN_toohot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temperature = 5;
+                temperature = "The beach is too hot";
             }
         });
         temperature_BTN_hot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                temperature = 4;
+                temperature = "The beach is hot";
             }
         });
         temperature_BTN_pleasant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temperature = 3;
+                temperature = "The beach is pleasant";
             }
         });
         temperature_BTN_cold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temperature = 2;
+                temperature = "The beach is cold";
             }
         });
         temperature_BTN_misty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temperature = 1;
+                temperature = "The beach is misty";
             }
         });
         temperature_BTN_windy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temperature = 1;
+                temperature = "The beach is windy";
             }
         });
 
@@ -251,7 +251,7 @@ public class ReportActivity extends AppCompatActivity {
                 flag_LinLay_red.setBackgroundColor(Color.parseColor("#597af2"));
                 flag_LinLay_white.setBackgroundColor(Color.parseColor("#F7ECDE"));
                 flag_LinLay_black.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                flag = 3;
+                flag = "The flag on the beach is red";
             }
         });
         flag_IMG_white.setOnClickListener(new View.OnClickListener() {
@@ -260,7 +260,7 @@ public class ReportActivity extends AppCompatActivity {
                 flag_LinLay_red.setBackgroundColor(Color.parseColor("#F7ECDE"));
                 flag_LinLay_white.setBackgroundColor(Color.parseColor("#597af2"));
                 flag_LinLay_black.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                flag = 1;
+                flag = "The flag on the beach is white";
             }
         });
         flag_IMG_black.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +269,7 @@ public class ReportActivity extends AppCompatActivity {
                 flag_LinLay_red.setBackgroundColor(Color.parseColor("#F7ECDE"));
                 flag_LinLay_white.setBackgroundColor(Color.parseColor("#F7ECDE"));
                 flag_LinLay_black.setBackgroundColor(Color.parseColor("#597af2"));
-                flag = 5;
+                flag = "The flag on the beach is black";
             }
         });
 
@@ -380,33 +380,33 @@ public class ReportActivity extends AppCompatActivity {
 
     //density
     private void createDensityListeners() {
-        density_IMG_toocrowded.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#597af2"));
-                density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density_LinLay_empty.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density = 5;
-            }
-        });
+       density_IMG_toocrowded.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#597af2"));
+               density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density_LinLay_empty.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density = "The beach is too Crowded";
+           }
+       });
         density_IMG_fewpeople.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#597af2"));
-                density_LinLay_empty.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density = 3;
-            }
-        });
+           @Override
+           public void onClick(View view) {
+               density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#597af2"));
+               density_LinLay_empty.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density = "There are few people on the beach";
+           }
+       });
         density_IMG_empty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#F7ECDE"));
-                density_LinLay_empty.setBackgroundColor(Color.parseColor("#597af2"));
-                density = 1;
-            }
-        });
+           @Override
+           public void onClick(View view) {
+               density_LinLay_toocrowded.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density_LinLay_fewpeople.setBackgroundColor(Color.parseColor("#F7ECDE"));
+               density_LinLay_empty.setBackgroundColor(Color.parseColor("#597af2"));
+               density = "The beach is empty";
+           }
+       });
 
         density_BTN_ok.setOnClickListener(new View.OnClickListener() {
             @Override

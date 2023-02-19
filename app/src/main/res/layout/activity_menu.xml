@@ -65,7 +65,7 @@
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="false"
-                    android:text="Gils beach Ashdod"
+                    android:text=" "
                     app:backgroundTint="@color/white"
                     android:textColor="@color/black"/>
 
@@ -73,7 +73,7 @@
                     android:id="@+id/menu_TXT_Distance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Beach is 2.7 km from you"
+                    android:text="Beach is   km from you"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24sp"
