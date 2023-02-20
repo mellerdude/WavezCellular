@@ -1,11 +1,17 @@
 package com.example.wavezcellular.activities;
 
+import static com.example.wavezcellular.utils.User.getGuest;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +20,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.wavezcellular.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,11 +48,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private ImageView home_IMG_profile;
     //private MaterialButton home_BTN_show;
-    //private MaterialButton home_BTN_report;
+    private MaterialButton show_BTN_report;
     private MaterialButton[] home_BTN_searches;
     private MaterialButton[] home_BTN_results;
     private Spinner home_SP_listOfBeaches;
     private ArrayAdapter<CharSequence> adapter;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     //firebase
     private FirebaseUser firebaseUserUser;
@@ -54,7 +65,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private Bundle bundle = null;
     private final int MAX_SEARCH = 5;
 
-    int pressed;
+    private boolean hasPremission;
+
 
 
 
@@ -62,14 +74,33 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_upgrade);
+        checkPermission();
         bundle = getIntent().getExtras();
         if (bundle == null){
             bundle = new Bundle();
         }
-        findViews();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    bundle.putDouble("x", location.getLatitude());
+                    bundle.putDouble("y", location.getLongitude());
 
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+        setContentView(R.layout.activity_home_upgrade);
+        findViews();
         firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUserUser == null){
+            getGuest(bundle);
+        }
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
         createSpinner();
         createListener();
@@ -159,12 +190,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-
     private void createListener(){
         home_IMG_profile.setOnClickListener(view -> replaceActivity("Profile"));
 
         for (int i =0; i<MAX_SEARCH;i++){
-            pressed = i;
+            int pressed = i;
             home_BTN_searches[i].setOnClickListener(view -> clickedBeach(pressed));
         }
 
@@ -183,8 +213,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 //        });
     }
 
-    private void clickedBeach(int pressed) {
-        beachName = (String) home_BTN_searches[pressed].getText();
+    private void clickedBeach(int i) {
+        beachName = (String) home_BTN_searches[i].getText();
         replaceActivity(beachName);
     }
 
@@ -231,7 +261,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private void findViews() {
         home_IMG_profile = findViewById(R.id.home_IMG_profile);
 //        home_BTN_show = findViewById(R.id.home_BTN_show);
-//        home_BTN_report = findViewById(R.id.home_BTN_report);
+        show_BTN_report = findViewById(R.id.show_BTN_reports);
         home_SP_listOfBeaches = findViewById(R.id.home_SP_listOfBeaches);
         home_BTN_searches = new MaterialButton[]{
                 findViewById(R.id.home_BTN_searchBeach1),
@@ -280,15 +310,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     myRef.child(location).child("latitude").setValue(latit);
                     myRef.child(location).child("longitude").setValue(logi);
                     myRef.child(location).child("name").setValue(beachName);
-                    myRef.child(location).child("review").setValue((Double)3.0);
-                    myRef.child(location).child("warmth").setValue((Double)3.0);
-                    myRef.child(location).child("danger").setValue((Double)3.0);
-                    myRef.child(location).child("wind").setValue((Double)3.0);
-                    myRef.child(location).child("jellyfish").setValue((Double)3.0);
-                    myRef.child(location).child("density").setValue((Double)3.0);
-                    myRef.child(location).child("dog").setValue((Double)3.0);
-                    myRef.child(location).child("accessible").setValue((Double)3.0);
-                    myRef.child(location).child("hygiene").setValue((Double)3.0);
+                    myRef.child(location).child("review").setValue(3.0);
+                    myRef.child(location).child("warmth").setValue(3.0);
+                    myRef.child(location).child("danger").setValue(3.0);
+                    myRef.child(location).child("wind").setValue(3.0);
+                    myRef.child(location).child("jellyfish").setValue(3.0);
+                    myRef.child(location).child("density").setValue(3.0);
+                    myRef.child(location).child("dog").setValue(3.0);
+                    myRef.child(location).child("accessible").setValue(3.0);
+                    myRef.child(location).child("hygiene").setValue(3.0);
 
                 }
 
@@ -304,8 +334,29 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    private void checkPermission() {
+        int fineLocationStatus = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocationStatus = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if ((fineLocationStatus != PackageManager.PERMISSION_GRANTED) &&
+                (coarseLocationStatus != PackageManager.PERMISSION_GRANTED)) {
+            hasPremission = true;
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    101);
+        } else {
+            hasPremission = true;
+        }
+
+    }
+
     private double getDistance(LatLng location1, LatLng location2){
         return (SphericalUtil.computeDistanceBetween(location1,location2)/1000);
     }
+
 
 }

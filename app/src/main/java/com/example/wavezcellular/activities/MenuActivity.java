@@ -1,5 +1,7 @@
 package com.example.wavezcellular.activities;
 
+import static com.example.wavezcellular.utils.User.getGuest;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -53,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     private int open = 0;
     private Double x;
     private Double y;
-
+    private String guest;
     private LocationManager locationManager;
 
     private FirebaseUser firebaseUserUser;
@@ -66,11 +68,15 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         findViews();
         setListeners();
+        bundle = getIntent().getExtras();
         if (bundle == null) {
             bundle = new Bundle();
         }
 
         firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUserUser == null){
+            getGuest(bundle);
+        }
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
 
 

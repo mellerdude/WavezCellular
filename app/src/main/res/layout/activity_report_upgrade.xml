@@ -21,14 +21,14 @@
             android:orientation="horizontal">
 
             <View
-                android:id="@+id/welcome_LOGO_wavez"
+                android:id="@+id/report_LOGO_wavez"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/wave_icon"
                 tools:ignore="MissingConstraints" />
 
             <ImageView
-                android:id="@+id/show_IMG_profile"
+                android:id="@+id/report_IMG_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_user"
@@ -46,7 +46,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/show_BTN_back"
+                android:id="@+id/report_BTN_back"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
@@ -59,7 +59,7 @@
                 />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/show_TXT_nameBeach"
+                android:id="@+id/report_TXT_nameBeach"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -88,6 +88,7 @@
         android:layout_height="0dp"
         android:layout_weight="7"
         android:background="@drawable/shapes"
+        android:backgroundTint="@color/blue_text_card"
         >
 
     <LinearLayout
@@ -134,6 +135,7 @@
 
 
                 <EditText
+                    android:id="@+id/report_EditTXT_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp">
@@ -190,7 +192,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Bad"
+                        android:text="Very Bad"
                         android:layout_weight="1"
                         android:layout_marginVertical="5dp"
                         >
@@ -204,7 +206,7 @@
                         >
 
                         <RatingBar
-                            android:id="@+id/userReports_RB_review"
+                            android:id="@+id/report_RB_review"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -221,7 +223,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Good"
+                        android:text="Very Good"
                         android:layout_weight="1"
                         android:layout_marginVertical="5dp"
                         >
@@ -273,7 +275,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -282,39 +284,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Empty"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="Uncrowded">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_density"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_density"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Crowd"
-                        android:layout_weight="1"
+                        android:text="Very Crowded"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -376,40 +374,37 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Cold"
-                        android:layout_weight="1"
+                        android:text="Very Cold"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
+                        android:layout_gravity="center"
                         >
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Warmth"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+
+                        <SeekBar
+                            android:id="@+id/report_SB_warmth"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="3"
+                            android:progress="50"
+                            android:secondaryProgress="50"
+                            android:progressTint="@color/transparent"
+                            android:secondaryProgressTint="@color/transparent"
+                            android:thumbTint="@color/white"
+                            android:progressBackgroundTint="@color/water"
+                            android:layout_gravity="center" />
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Hot"
-                        android:layout_weight="1"
+                        android:text="Very Hot"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
+                        android:layout_gravity="center"
                         >
 
                     </com.google.android.material.textview.MaterialTextView>
@@ -460,7 +455,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -469,39 +464,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Breeze"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="No wind">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Wind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_wind"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Freeze"
-                        android:layout_weight="1"
+                        android:text="Very Windy"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -557,7 +548,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -566,39 +557,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="No"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="Not accessible">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Accessibility"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_accessible"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Yes"
-                        android:layout_weight="1"
+                        android:text="Very Accessible"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -654,7 +641,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -663,39 +650,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="None"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="Not at all">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Jellyfish"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_jellyfish"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Alot"
-                        android:layout_weight="1"
+                        android:text="Too many"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -750,7 +733,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -759,39 +742,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="No"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="Very dirty">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Hygiene"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_Hygiene"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Yes"
-                        android:layout_weight="1"
+                        android:text="Very Clean"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -832,7 +811,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dog Friendly"
+                    android:text="Pet Friendly"
                     android:textStyle="bold">
 
                 </com.google.android.material.textview.MaterialTextView>
@@ -847,7 +826,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -856,39 +835,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="No"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="No pets allowed">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Dog"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_dog"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Yes"
-                        android:layout_weight="1"
+                        android:text="Very friendy towards pets"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -916,7 +891,7 @@
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_flag">
+                app:srcCompat="@drawable/ic_wave">
 
             </com.google.android.material.imageview.ShapeableImageView>
 
@@ -929,7 +904,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Flag"
+                    android:text="Danger"
                     android:textStyle="bold">
 
                 </com.google.android.material.textview.MaterialTextView>
@@ -944,7 +919,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="6"
@@ -953,39 +928,35 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Avoid"
-                        android:layout_weight="1"
                         android:layout_marginVertical="5dp"
-                        >
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="calm">
 
                     </com.google.android.material.textview.MaterialTextView>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="4"
-                        >
 
-                        <RatingBar
-                            android:id="@+id/userReports_RB_Flag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="-33dp"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="0.75"
-                            android:scaleY="0.75"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
-                    </RelativeLayout>
+                    <SeekBar
+                        android:id="@+id/report_SB_danger"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:progress="50"
+                        android:secondaryProgress="50"
+                        android:progressTint="@color/transparent"
+                        android:secondaryProgressTint="@color/transparent"
+                        android:thumbTint="@color/white"
+                        android:progressBackgroundTint="@color/water"
+                        android:layout_gravity="center" />
+
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Calm"
-                        android:layout_weight="1"
+                        android:text="Very Dangerous"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
                         android:layout_marginVertical="5dp"
                         >
 
@@ -1269,6 +1240,7 @@
                 android:text="Submit"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/sea"
+                android:textColor="@color/white"
                 app:cornerRadius="40dp">
 
             </com.google.android.material.button.MaterialButton>
