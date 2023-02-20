@@ -1,5 +1,7 @@
 package com.example.wavezcellular.activities;
 
+import static com.example.wavezcellular.utils.User.getGuest;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -98,10 +100,12 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void saveData(){
-        FirebaseDatabase.getInstance().getReference("Users")
-                .child(userID)
-                .setValue(user);
-        setUserInfo();
+        if(!user.getName().contains("guest")) {
+            FirebaseDatabase.getInstance().getReference("Users")
+                    .child(userID)
+                    .setValue(user);
+            setUserInfo();
+        }
     }
 
 
@@ -110,23 +114,29 @@ public class UserActivity extends AppCompatActivity {
 
     public void getCurrentUsersData() {
         firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = FirebaseDatabase.getInstance().getReference("Users");
-        userID = firebaseUserUser.getUid();
-        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                user = dataSnapshot.getValue(User.class);
-                setUserInfo();
+        if(firebaseUserUser == null){
+            String guest = getGuest(bundle);
+            user = new User(guest,"No Email Available");
+            setUserInfo();
+        }else {
+            myRef = FirebaseDatabase.getInstance().getReference("Users");
+            userID = firebaseUserUser.getUid();
+            myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    user = dataSnapshot.getValue(User.class);
+                    setUserInfo();
+                }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
 
-            }
-        });
     }
 
     private void setUserInfo() {
