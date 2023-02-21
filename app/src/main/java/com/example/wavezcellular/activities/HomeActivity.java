@@ -1,5 +1,6 @@
 package com.example.wavezcellular.activities;
 
+import static com.example.wavezcellular.activities.ShowActivity.getDouble;
 import static com.example.wavezcellular.utils.User.getGuest;
 
 import androidx.annotation.NonNull;
@@ -45,22 +46,24 @@ import java.util.Locale;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-
+    private final int DEF_VAL = 50;
+    private final double DEF_REVIEW_VAL = 3.0;
     private ImageView home_IMG_profile;
     //private MaterialButton home_BTN_show;
-    private MaterialButton show_BTN_report;
+    private MaterialButton home_BTN_switch;
     private MaterialButton[] home_BTN_searches;
     private MaterialButton[] home_BTN_results;
     private Spinner home_SP_listOfBeaches;
     private ArrayAdapter<CharSequence> adapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
-
+    String value = "Distance";
     //firebase
     private FirebaseUser firebaseUserUser;
     private DatabaseReference myRef;
 
     //map
 
+    private int orderBy = 1;
     private String beachName;
     private Bundle bundle = null;
     private final int MAX_SEARCH = 5;
@@ -102,13 +105,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             getGuest(bundle);
         }
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
+        //setItemsForDemo();
         createSpinner();
         createListener();
-
 
     }
 
     private void createBeaches(ArrayList<Map.Entry<String,Double>> list) {
+        if(orderBy == 0)
+            Collections.reverse(list);
         for (int i = 0; i< MAX_SEARCH; i++){
             String format = String.format("%.01f", list.get(i).getValue());
             String result =   format ;
@@ -120,6 +125,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void createBeaches(String parameter, ArrayList<String> list) {
+        if(orderBy == 0)
+            Collections.reverse(list);
         for (int i = 0; i< MAX_SEARCH; i++){
             String beachName = list.get(i).toString();
             home_BTN_searches[i].setText(beachName);
@@ -134,35 +141,39 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 HashMap<String,Double> beachesSort = new HashMap<>();
-                HashMap<String, HashMap<String,Object>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
+                HashMap<String, HashMap<String,HashMap<String,Object>>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
                 if(value.equalsIgnoreCase("distance")) {
                     double userLat = (double) bundle.get("x");
                     double userLon = (double) bundle.get("y");
                     LatLng user = new LatLng(userLat,userLon);
-                    for (Map.Entry<String, HashMap<String, Object>> set :
+                    for (Map.Entry<String, HashMap<String, HashMap<String,Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("name");
-                        LatLng loc = new LatLng((Double) set.getValue().get("latitude"), (Double)set.getValue().get("longitude"));
+                        String beachName = (String) set.getValue().get("Data").get("name");
+                        LatLng loc = new LatLng( getDouble(set.getValue().get("Data").get("latitude")), getDouble(set.getValue().get("Data").get("longitude")));
                         Double val = getDistance(user,loc);
                         beachesSort.put(beachName, val);
-
                     }
                 }else if(value.equalsIgnoreCase("name")){
                     ArrayList<String> list = new ArrayList<>();
-                    for (Map.Entry<String, HashMap<String, Object>> set :
+                    for (Map.Entry<String, HashMap<String, HashMap<String,Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("name");
+
+                        String beachName = (String) set.getValue().get("Data").get("name");
                         list.add(beachName);
                     }
                     Collections.sort(list);
                     createBeaches(value,list);
                 }
                 else{
-                    for (Map.Entry<String, HashMap<String, Object>> set :
+                    //If value is not distance or name
+                    for (Map.Entry<String, HashMap<String, HashMap<String,Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("name");
-                        Long l = (Long) set.getValue().get(value);
-                        double val = (double)l;
+                        String beachName = (String) set.getValue().get("Data").get("name");
+                        double val = DEF_REVIEW_VAL;
+                        if(set.getValue().get("Reports")!= null) {
+                            val = calcAVG(set.getValue().get("Reports"), value);
+                            myRef.child(beachName).child("Data").child(value).setValue(val);
+                        }
                         beachesSort.put(beachName, val);
                     }
                 }
@@ -188,10 +199,23 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    private double calcAVG(HashMap<String, Object> reports, String value) {
+        double sum = 0;
+        int numObjects = 0;
+        for (Map.Entry<String,Object> set :
+                reports.entrySet()) {
+            HashMap<String, Object> entry = (HashMap<String, Object>) set.getValue();
+            numObjects++;
+            double val = getDouble(entry.get(value));
+            sum += val;
+        }
+        return sum/numObjects;
+    }
 
 
     private void createListener(){
         home_IMG_profile.setOnClickListener(view -> replaceActivity("Profile"));
+        home_BTN_switch.setOnClickListener(view -> switchMode());
 
         for (int i =0; i<MAX_SEARCH;i++){
             int pressed = i;
@@ -211,6 +235,19 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 //                replaceActivity("Show");
 //            }
 //        });
+    }
+
+    private void switchMode() {
+        if(orderBy == 0)
+            orderBy =1;
+        else
+            orderBy =0;
+        if(home_BTN_switch.getText().toString().equalsIgnoreCase("Ascending"))
+            home_BTN_switch.setText("Descending");
+        else
+            home_BTN_switch.setText("Ascending");
+
+        getBeaches(value);
     }
 
     private void clickedBeach(int i) {
@@ -261,7 +298,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private void findViews() {
         home_IMG_profile = findViewById(R.id.home_IMG_profile);
 //        home_BTN_show = findViewById(R.id.home_BTN_show);
-        show_BTN_report = findViewById(R.id.show_BTN_reports);
+        home_BTN_switch = findViewById(R.id.home_BTN_switch);
         home_SP_listOfBeaches = findViewById(R.id.home_SP_listOfBeaches);
         home_BTN_searches = new MaterialButton[]{
                 findViewById(R.id.home_BTN_searchBeach1),
@@ -289,6 +326,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         int i = parameter.indexOf(' ');
         String word = parameter.substring(0, i);
+        value = word;
         getBeaches(word);
     }
 
@@ -296,7 +334,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-    public void setItemsWhenEmpty() {
+    public void setItemsForDemo() {
         adapter = ArrayAdapter.createFromResource(this,R.array.beaches, android.R.layout.simple_spinner_item);
         for (int i=0;i<adapter.getCount();i++) {
             String location = adapter.getItem(i).toString();
@@ -307,19 +345,31 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (listAddress.size() > 0) {
                     double latit = listAddress.get(0).getLatitude();
                     double logi = listAddress.get(0).getLongitude();
-                    myRef.child(location).child("latitude").setValue(latit);
-                    myRef.child(location).child("longitude").setValue(logi);
-                    myRef.child(location).child("name").setValue(beachName);
-                    myRef.child(location).child("review").setValue(3.0);
-                    myRef.child(location).child("warmth").setValue(3.0);
-                    myRef.child(location).child("danger").setValue(3.0);
-                    myRef.child(location).child("wind").setValue(3.0);
-                    myRef.child(location).child("jellyfish").setValue(3.0);
-                    myRef.child(location).child("density").setValue(3.0);
-                    myRef.child(location).child("dog").setValue(3.0);
-                    myRef.child(location).child("accessible").setValue(3.0);
-                    myRef.child(location).child("hygiene").setValue(3.0);
-
+                    myRef.child(location).child("Data").child("latitude").setValue(latit);
+                    myRef.child(location).child("Data").child("longitude").setValue(logi);
+                    myRef.child(location).child("Data").child("name").setValue(beachName);
+                    myRef.child(location).child("Data").child("review").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("warmth").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("danger").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("wind").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("jellyfish").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("density").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("dog").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("accessible").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("hygiene").setValue(DEF_REVIEW_VAL);
+                    for (int j=0;j<3;j++) {
+                        double num = (Math.random()*4 + 1);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("review").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("density").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("jellyfish").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("accessible").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("danger").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("dog").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("hygiene").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("warmth").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("wind").setValue(num);
+                        myRef.child(location).child("Reports").child("Guest_Demo_"+j).child("comment").setValue("Great Beach and even better demo");
+                    }
                 }
 
             } catch (IOException e) {

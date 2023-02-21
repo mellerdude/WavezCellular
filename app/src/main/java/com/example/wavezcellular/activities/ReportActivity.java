@@ -21,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,7 +44,10 @@ public class ReportActivity extends AppCompatActivity {
     private String BeachName;
     private FirebaseUser firebaseUserUser;
     private DatabaseReference myRef;
-    private String user;
+    private String guest;
+    private String userID;
+    private User user;
+    //private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +60,9 @@ public class ReportActivity extends AppCompatActivity {
             this.bundle = new Bundle();
             BeachName = "";
         }
-        firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(firebaseUserUser == null){
-            user = getGuest(bundle);
-        }else
-            user = firebaseUserUser.getDisplayName();
-        myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName);
-
 
         findViews();
+        getCurrentUsersData();
         createListeners();
         report_TXT_nameBeach.setText(""+ BeachName);
     }
@@ -92,7 +90,7 @@ public class ReportActivity extends AppCompatActivity {
         report_BTN_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitValues();
+                addSubmiterData();
                 Intent intent = new Intent( ReportActivity.this, HomeActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -101,19 +99,59 @@ public class ReportActivity extends AppCompatActivity {
         });
     }
 
-    private void submitValues() {
-        myRef.child("Reports").child(user).child("review").setValue(report_RB_review.getRating());
-        myRef.child("Reports").child(user).child("density").setValue(report_SB_density.getProgress());
-        myRef.child("Reports").child(user).child("jellyfish").setValue(report_SB_jellyfish.getProgress());
-        myRef.child("Reports").child(user).child("accessible").setValue(report_SB_accessible.getProgress());
-        myRef.child("Reports").child(user).child("danger").setValue(report_SB_danger.getProgress());
-        myRef.child("Reports").child(user).child("dog").setValue(report_SB_dog.getProgress());
-        myRef.child("Reports").child(user).child("hygiene").setValue(report_SB_hygiene.getProgress());
-        myRef.child("Reports").child(user).child("warmth").setValue(report_SB_warmth.getProgress());
-        myRef.child("Reports").child(user).child("wind").setValue(report_SB_wind.getProgress());
-        myRef.child("Reports").child(user).child("comment").setValue(report_EditTXT_comment.getText());
+    public void getCurrentUsersData() {
+        firebaseUserUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUserUser == null){
+            String guest = getGuest(bundle);
+            user = new User(guest,"No Email Available");
+        }else {
+            myRef = FirebaseDatabase.getInstance().getReference("Users");
+            userID = firebaseUserUser.getUid();
+            myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    user = dataSnapshot.getValue(User.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
     }
+
+    public void addSubmiterData() {
+        String username = user.getName();
+        myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports").child(username);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    myRef.child("review").setValue(report_RB_review.getRating());
+                    myRef.child("density").setValue(report_SB_density.getProgress()/20);
+                    myRef.child("jellyfish").setValue(report_SB_jellyfish.getProgress()/20);
+                    myRef.child("accessible").setValue(report_SB_accessible.getProgress()/20);
+                    myRef.child("danger").setValue(report_SB_danger.getProgress()/20);
+                    myRef.child("dog").setValue(report_SB_dog.getProgress()/20);
+                    myRef.child("hygiene").setValue(report_SB_hygiene.getProgress()/20);
+                    myRef.child("warmth").setValue(report_SB_warmth.getProgress()/20);
+                    myRef.child("wind").setValue(report_SB_wind.getProgress()/20);
+                    myRef.child("comment").setValue(report_EditTXT_comment.getText().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
 
 
     private void findViews() {

@@ -35,7 +35,7 @@ public class ShowActivity extends AppCompatActivity {
     private RatingBar show_RB_review;
     private Bundle bundle;
     private String BeachName;
-    private final double HIGH_VALUE = 70;
+    private final double HIGH_VALUE = 3.5;
     private FirebaseUser firebaseUserUser;
     private DatabaseReference myRef;
 
@@ -68,7 +68,7 @@ public class ShowActivity extends AppCompatActivity {
 
     private void showInfo() {
         show_TXT_nameBeach.setText(""+ BeachName);
-        myRef.child(BeachName).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(BeachName).child("Data").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -124,15 +124,39 @@ public class ShowActivity extends AppCompatActivity {
         });
     }
 
-    private double getDouble(HashMap<String, Object> hashMap, String valueName) {
-        Long l = (Long) hashMap.get(valueName);
+    public static double getDouble(HashMap<String, Object> hashMap, String valueName) {
+        Object o = hashMap.get(valueName);
         double val;
-        if(l != null)
-            val = (double)l;
+        if(o instanceof Long) {
+            Long l = (Long) o;
+            if (l != null) {
+                val = (double) l;
+                return val;
+            }
+        }else if(o instanceof Double) {
+            return (double) o;
+        }
         else
-            val = 0;
-        return val;
+            return 0;
+        return 0;
     }
+
+    public static double getDouble(Object o) {
+        double val;
+        if(o instanceof Long) {
+            Long l = (Long) o;
+            if (l != null) {
+                val = (double) l;
+                return val;
+            }
+        }else if(o instanceof Double) {
+            return (double) o;
+        }
+        else
+            return 0;
+        return 0;
+    }
+
 
     private void createListeners() {
         show_BTN_back.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +188,7 @@ public class ShowActivity extends AppCompatActivity {
                 finish();
             }
             if (mode.equals("Report")) {
-                intent = new Intent(this, ReportActivity.class);
+                intent = new Intent(this, UserReportsActivity.class);
                 bundle.putString("BEACH_NAME", BeachName);
                 intent.putExtras(bundle);
                 startActivity(intent);
