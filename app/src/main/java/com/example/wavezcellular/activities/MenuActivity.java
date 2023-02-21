@@ -1,10 +1,13 @@
 package com.example.wavezcellular.activities;
 
+import static com.example.wavezcellular.activities.ShowActivity.getDouble;
 import static com.example.wavezcellular.utils.User.getGuest;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -32,13 +35,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.SphericalUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class MenuActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private final double DEF_REVIEW_VAL = 3.0;
     private MaterialButton menu_BTN_beachFound;
     private MaterialButton menu_BTN_beachdetails;
     private MaterialButton menu_BTN_searchBeach;
@@ -57,7 +64,7 @@ public class MenuActivity extends AppCompatActivity {
     private Double y;
     private String guest;
     private LocationManager locationManager;
-
+    private int firstTime = 1;
     private FirebaseUser firebaseUserUser;
     private DatabaseReference myRef;
 
@@ -78,8 +85,6 @@ public class MenuActivity extends AppCompatActivity {
             getGuest(bundle);
         }
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
-
-
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
@@ -111,16 +116,17 @@ public class MenuActivity extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 double minDistance = 100000;
-
                 double currDistance = 100000;
-                HashMap<String,HashMap<String,Object>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
+                HashMap<String,HashMap<String,HashMap<String,Object>>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
                 System.out.println("Stop");
-                for (Map.Entry<String, HashMap<String,Object>> set :
+                for (Map.Entry<String, HashMap<String,HashMap<String,Object>>> set :
                         beaches.entrySet()) {
                     double x,y;
-                    String beachName = (String) set.getValue().get("name");
-                    x = (double) set.getValue().get("latitude");
-                    y = (double) set.getValue().get("longitude");
+                    String beachName = (String) set.getValue().get("Data").get("name");
+
+                        x =  getDouble(set.getValue().get("Data").get("latitude"));
+                        y =  getDouble(set.getValue().get("Data").get("longitude"));
+
                     LatLng location = new LatLng(x,y);
                     currDistance = getDistance(user,location);
                     if(currDistance<minDistance) {
@@ -211,6 +217,26 @@ public class MenuActivity extends AppCompatActivity {
 
     private double getDistance(LatLng location1, LatLng location2){
         return (SphericalUtil.computeDistanceBetween(location1,location2)/1000);
+    }
+
+    public void setItemsForDemo() {
+        adapter = ArrayAdapter.createFromResource(this,R.array.beaches, android.R.layout.simple_spinner_item);
+        for (int i=0;i<adapter.getCount();i++) {
+            String location = adapter.getItem(i).toString();
+                    myRef.child(location).child("Data").child("latitude").setValue(0);
+                    myRef.child(location).child("Data").child("longitude").setValue(0);
+                    myRef.child(location).child("Data").child("name").setValue(location);
+                    myRef.child(location).child("Data").child("review").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("warmth").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("danger").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("wind").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("jellyfish").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("density").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("dog").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("accessible").setValue(DEF_REVIEW_VAL);
+                    myRef.child(location).child("Data").child("hygiene").setValue(DEF_REVIEW_VAL);
+
+        }
     }
 
 

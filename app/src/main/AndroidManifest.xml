@@ -30,6 +30,10 @@
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"/>
         <activity
+            android:name=".activities.UserReportsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"/>
+        <activity
             android:name=".activities.UserActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"/>
