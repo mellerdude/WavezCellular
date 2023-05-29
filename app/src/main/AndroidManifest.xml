@@ -16,7 +16,7 @@
         android:theme="@style/Theme.WavezCellular">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXgJl16FZGD1JaUNEPrhsKc-QspcpIV6Q" />
+            android:value="@string/secret_google_api" />
 
         <activity
             android:name=".activities.ShowActivity"
