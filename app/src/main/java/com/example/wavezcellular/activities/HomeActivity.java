@@ -315,25 +315,26 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void replaceActivity(String mode) {
+        String upper = mode.toUpperCase();
         Intent intent;
-        if (mode.equals("Profile")) {
+        if (upper.equals("PROFILE")) {
             intent = new Intent(this, UserActivityUpgrade.class);
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
-        } else if (mode.equals("Report")) {
+        } else if (upper.equals("REPORT")) {
             intent = new Intent(this, ReportActivity.class);
             bundle.putString("BEACH_NAME", beachName);
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
-        } else if (mode.contains("beach")) {
+        } else if (upper.contains("BEACH")) {
             intent = new Intent(this, ShowActivity.class);
             bundle.putString("BEACH_NAME", mode);
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
-        } else if (mode.equals("Menu")) {
+        } else if (upper.equals("MENU")) {
             intent = new Intent(this, MenuActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
