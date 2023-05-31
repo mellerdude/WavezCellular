@@ -153,7 +153,7 @@ public class UserReportsActivity extends AppCompatActivity {
             finish();
         }
         if (mode.equals("Report")) {
-            intent = new Intent(this, UserReportsActivity.class);
+            intent = new Intent(this, ReportActivity.class);
             bundle.putString("BEACH_NAME", BeachName);
             intent.putExtras(bundle);
             startActivity(intent);

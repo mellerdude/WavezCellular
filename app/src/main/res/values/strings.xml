@@ -14,6 +14,10 @@
     <string name="home_show">Show</string>
     <string name="home_report">Report</string>
     <string name="home_search">Search</string>
+    <string name="home_lets_find">Let\'s find the best beach for you</string>
+    <string name="home_beach_near">Beaches near you</string>
+    <string name="home_beach_name">Beach name</string>
+    <string name="home_value">Value</string>
 
 
     <string name="show_km">KM from you</string>

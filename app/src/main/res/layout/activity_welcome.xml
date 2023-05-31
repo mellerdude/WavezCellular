@@ -21,18 +21,15 @@
              />
 
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/welcome_BTN_back"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@color/transparent"
-            android:text="@string/welcome_back"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
             app:backgroundTint="@color/water"
             app:icon="@drawable/ic_baseline_arrow_back_24"
-            app:iconTint="@color/white" />
+            app:iconTint="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -43,43 +40,48 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="240dp"
         android:orientation="vertical">
-
 
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/welcome_TXT_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shadowColor="@color/black"
-            android:text="@string/welcome_title"
             android:layout_margin="10dp"
-            android:textColor="@color/sand"
-            android:textSize="40sp"
-            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+            android:text="@string/welcome_title"
+            android:textColor="@color/main_title_text"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/lobster"
+            >
+
+        </com.google.android.material.textview.MaterialTextView>
 
 
         <LinearLayout
             android:id="@+id/welcome_LinLay_signin"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="40dp">
 
             <EditText
                 android:id="@+id/welcome_EDT_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:hint="@string/welcome_name"
+                android:importantForAutofill="no"
                 android:inputType="textWebEditText"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:importantForAutofill="no">
+                tools:ignore="TextContrastCheck">
 
             </EditText>
 
@@ -87,17 +89,19 @@
             <EditText
                 android:id="@+id/welcome_EDT_email"
                 android:layout_width="match_parent"
-                android:layout_margin="10dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:hint="@string/welcome_email"
+                android:importantForAutofill="no"
                 android:inputType="textWebEmailAddress"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:importantForAutofill="no">
+                tools:ignore="TextContrastCheck">
 
             </EditText>
 
@@ -106,15 +110,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:hint="@string/welcome_password"
+                android:importantForAutofill="no"
                 android:inputType="textWebPassword"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:importantForAutofill="no"></EditText>
+                tools:ignore="TextContrastCheck"></EditText>
 
         </LinearLayout>
 
@@ -154,7 +160,8 @@
             android:id="@+id/welcome_LinLay_finalAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -172,6 +179,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:cornerRadius="40dp"
+                    android:fontFamily="@font/poppins"
                     android:visibility="invisible">
 
 
@@ -188,9 +196,10 @@
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/poppins"
+                    android:visibility="visible"
                     app:cornerRadius="40dp"
-                    android:visibility="visible">
-                </com.google.android.material.button.MaterialButton>
+                    tools:ignore="TextContrastCheck"></com.google.android.material.button.MaterialButton>
             </FrameLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome_BTN_forgotPassword"
@@ -204,6 +213,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:cornerRadius="40dp"
+                android:fontFamily="@font/poppins"
                 android:visibility="invisible"
                 >
 

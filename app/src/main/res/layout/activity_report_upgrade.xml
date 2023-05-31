@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.7"
             android:background="@color/water"
             android:orientation="horizontal">
 
@@ -48,28 +48,28 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/report_BTN_back"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.5"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/water"
-                android:background="@color/transparent"
                 app:icon="@drawable/ic_baseline_arrow_back_24"
                 app:iconTint="@color/white"
-                />
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/report_TXT_nameBeach"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_weight="4.5"
-                android:gravity="center"
+                android:layout_weight="4"
                 android:text="Gils Beach"
-                android:textColor="@color/sand"
-                android:textColorHighlight="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                android:textAlignment="textStart"
+                android:textColor="@color/main_title_text"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/lobster"></com.google.android.material.textview.MaterialTextView>
 
 
         </LinearLayout>
@@ -83,7 +83,8 @@
             android:text="Report"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -110,7 +111,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/conversation">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -118,7 +119,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -129,19 +130,13 @@
 
                 </com.google.android.material.textview.MaterialTextView>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Write what's on your mind">
-
-                </com.google.android.material.textview.MaterialTextView>
-
 
                 <EditText
                     android:id="@+id/report_EditTXT_comment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:hint="Write what's on your mind">
 
                 </EditText>
             </LinearLayout>
@@ -157,7 +152,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/star">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -165,7 +160,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -192,22 +187,20 @@
                     >
 
 
-
-
-
-                        <RatingBar
-                            android:id="@+id/report_RB_review"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:progressTint="@color/sand"
-                            android:secondaryProgressTint="@color/sand"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:scaleX="1"
-                            android:scaleY="1"
-                            android:transformPivotX="0dp"
-                            android:transformPivotY="0dp" />
+                    <RatingBar
+                        android:id="@+id/report_RB_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:numStars="5"
+                        android:progressTint="@color/sand"
+                        android:rating="3"
+                        android:scaleX="1"
+                        android:scaleY="1"
+                        android:secondaryProgressTint="@color/sand"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
 
@@ -223,20 +216,21 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal"
-            android:weightSum="6.5">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            >
+
+           <!-- <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/ic_fewpeople">
 
             </com.google.android.material.imageview.ShapeableImageView>
-
+-->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -263,7 +257,7 @@
                     android:weightSum="6"
                     >
 
-                    <com.google.android.material.textview.MaterialTextView
+                   <!-- <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
@@ -272,7 +266,15 @@
                         android:text="Uncrowded">
 
                     </com.google.android.material.textview.MaterialTextView>
+-->
 
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_empty"
+                        android:layout_weight="1.5">
+
+                    </ImageView>
 
                     <SeekBar
                         android:id="@+id/report_SB_density"
@@ -289,7 +291,7 @@
 
                     <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
 
-                    <com.google.android.material.textview.MaterialTextView
+                   <!-- <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Very Crowded"
@@ -299,7 +301,15 @@
                         >
 
                     </com.google.android.material.textview.MaterialTextView>
+-->
 
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_toocrowded"
+                        android:layout_weight="1.5">
+
+                    </ImageView>
 
 
                 </LinearLayout>
@@ -318,7 +328,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/ic_temperatures">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -326,7 +336,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -408,7 +418,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/ic_wind">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -416,7 +426,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -501,7 +511,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/accessible">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -509,7 +519,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -594,7 +604,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/ic_jellyfish">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -602,7 +612,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -686,7 +696,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/toilet">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -694,7 +704,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -779,7 +789,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/dog">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -787,7 +797,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -872,7 +882,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 app:srcCompat="@drawable/ic_wave">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -880,7 +890,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.5"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView

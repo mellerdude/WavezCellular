@@ -85,10 +85,10 @@
                 android:layout_marginTop="5dp"
                 android:text=""
                 android:textAlignment="center"
-                android:textColor="@color/beach_name"
-                android:textColorHighlight="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                android:textColor="@color/main_title_text"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/lobster"></com.google.android.material.textview.MaterialTextView>
 
 
         </LinearLayout>
@@ -96,7 +96,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="2"
             android:background="@color/water"
             android:gravity="center_horizontal"
@@ -110,6 +109,7 @@
                 android:text="@string/show_km"
                 android:textColor="@color/black"
                 android:textAlignment="center"
+                android:fontFamily="@font/poppins"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -134,7 +134,7 @@
                     android:layout_height="match_parent"
                     android:text="Default"
                     android:textAlignment="center"
-
+                    android:fontFamily="@font/poppins"
                     android:textColor="@color/black"
                     android:textSize="40sp"
                     android:layout_weight="2" />
@@ -211,6 +211,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -252,6 +253,7 @@
                         android:layout_marginBottom="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:fontFamily="@font/poppins"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
                         tools:ignore="RtlCompat" />
@@ -288,6 +290,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -332,6 +335,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -366,6 +370,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -413,6 +418,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -447,6 +453,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>
@@ -493,6 +500,7 @@
                         android:textSize="14sp"
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
+                        android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
 
                 </FrameLayout>

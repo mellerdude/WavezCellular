@@ -10,13 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
-        android:weightSum="16">
+        android:weightSum="17">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:background="@color/water"
             android:orientation="horizontal"
             android:weightSum="5">
@@ -56,15 +55,15 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/userReports_BTN_back"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
+                android:background="@color/transparent"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/water"
-                android:background="@color/transparent"
                 app:icon="@drawable/ic_baseline_arrow_back_24"
                 app:iconTint="@color/white"
-                />
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/userReports_TXT_nameBeach"
@@ -75,10 +74,10 @@
                 android:layout_weight="4"
                 android:gravity="start"
                 android:text="Gils Beach"
-                android:textColor="@color/sand"
-                android:textColorHighlight="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                android:textColor="@color/main_title_text"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/lobster"></com.google.android.material.textview.MaterialTextView>
 
 
         </LinearLayout>
@@ -88,6 +87,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/water"
             android:gravity="center_horizontal"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
@@ -96,7 +96,9 @@
                 android:layout_height="wrap_content"
                 android:text="User Reports"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins"/>
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

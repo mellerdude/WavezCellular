@@ -9,5 +9,6 @@
     android:text="true"
     android:textColor="@color/spinner_text"
     android:background="@color/transparent"
+    android:fontFamily="@font/poppins"
     android:textSize="20sp"
     android:textStyle="bold" />

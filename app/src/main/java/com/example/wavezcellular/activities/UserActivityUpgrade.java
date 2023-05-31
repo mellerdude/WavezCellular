@@ -243,13 +243,13 @@ public class UserActivityUpgrade extends AppCompatActivity {
         profile_IMG_back = findViewById(R.id.profile_IMG_back);
         profile_IMG_picture = findViewById(R.id.profile_IMG_picture);
         profile_IMG_mail = findViewById(R.id.profile_IMG_mail);
-        profile_IMG_location = findViewById(R.id.profile_IMG_location);
-        profile_IMG_favorite = findViewById(R.id.profile_IMG_favorite);
+        //profile_IMG_location = findViewById(R.id.profile_IMG_location);
+        //profile_IMG_favorite = findViewById(R.id.profile_IMG_favorite);
 
         profile_TXT_name = findViewById(R.id.profile_TXT_name);
         profile_TXT_mail = findViewById(R.id.profile_TXT_mail);
-        profile_TXT_location = findViewById(R.id.profile_TXT_location);
-        profile_TXT_favorite = findViewById(R.id.profile_TXT_favorite);
+        //profile_TXT_location = findViewById(R.id.profile_TXT_location);
+        //profile_TXT_favorite = findViewById(R.id.profile_TXT_favorite);
 
         profile_BTN_change = findViewById(R.id.profile_BTN_change);
         profile_BTN_signout = findViewById(R.id.profile_BTN_signout);

@@ -275,6 +275,13 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             @Override
             public void onClick(View view) {clickOnReports(); }
         });
+        show_BTN_create_report.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                clickOnCreateReports();
+            }
+        });
         show_BTN_waze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,8 +296,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         });
     }
 
-    private void clickOnReports(){
-        /*if(isGuest){ // user who are not registered cannot report
+    private void clickOnCreateReports() {
+         if(isGuest){ // user who are not registered cannot report
             AlertDialog.Builder builder = new AlertDialog.Builder(ShowActivity.this);
             builder.setTitle("Do you want to add a report to this beach ?");
             builder.setMessage("You need to register or login first");
@@ -302,16 +309,18 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             builder.setNegativeButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 // When the user click yes button then app will take it to the register/login page
                 replaceActivity("Welcome");
-
             });
-
             // Create the Alert dialog
             AlertDialog alertDialog = builder.create();
             // Show the Alert Dialog box
             alertDialog.show();
         }else{
             replaceActivity("Report");
-        }*/
+        }
+    }
+
+    private void clickOnReports(){
+
         replaceActivity("Report");
     }
 
