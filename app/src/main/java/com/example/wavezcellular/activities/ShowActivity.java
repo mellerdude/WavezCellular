@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,6 +57,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
     private MaterialTextView show_TXT_nameBeach, show_TXT_temperature, show_TXT_distance;
 
     private TextView show_TXT_jellyfish, show_TXT_density, show_TXT_danger, show_TXT_wind, show_TXT_accessible, show_TXT_dog, show_TXT_warmth, show_TXT_hygiene;
+
+    private ShapeableImageView show_IMG_flag, show_IMG_weather;
     private RatingBar show_RB_review;
     private Bundle bundle;
     private String BeachName;
@@ -158,11 +161,18 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
                             JSONObject jsonObject = new JSONObject(response);
                             double temperature = (jsonObject.getJSONObject("main").getDouble("temp")) - 273.15;
 
+                            JSONObject jsonWeather = (JSONObject) (jsonObject.getJSONArray("weather").get(0));
+                            String skyDesc = jsonWeather.getString("description");
+
+                            //Take windSpeed and convert to knots per hour
+                            double windSpeed = (jsonObject.getJSONObject("wind").getDouble("speed"))*1.94384;
                             // Update UI with temperature using runOnUiThread()
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     show_TXT_temperature.setText((String.format("%.1f °C", temperature)));
+                                    configureSkyIcon(skyDesc);
+                                    configureDangerIcon(windSpeed);
                                 }
                             });
                         } catch (Exception e) {
@@ -216,6 +226,32 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
 
             }
         });
+    }
+
+    private void configureSkyIcon(String skyDesc){
+        skyDesc = skyDesc.toUpperCase();
+        // Set the weather icon based on the weather description
+        if (skyDesc.contains("CLEAR SKY") || skyDesc.contains("FEW CLOUDS")) {
+            show_IMG_weather.setImageResource(R.drawable.ic_sun);
+        } else if (skyDesc.contains("SCATTERED CLOUDS") || skyDesc.contains("BROKEN CLOUDS") || skyDesc.contains("OVERCAST CLOUDS")) {
+            show_IMG_weather.setImageResource(R.drawable.cloudy_day);
+        } else if (skyDesc.contains("LIGHT RAIN") || skyDesc.contains("MODERATE RAIN") || skyDesc.contains("HEAVY RAIN") || skyDesc.contains("THUNDERSTORM")) {
+            show_IMG_weather.setImageResource(R.drawable.rain);
+        } else if (skyDesc.contains("MIST") || skyDesc.contains("FOG")) {
+            show_IMG_weather.setImageResource(R.drawable.fog);
+        }else
+            show_IMG_weather.setImageResource(R.drawable.ic_sun);
+    }
+
+    private void configureDangerIcon(double windSpeed){
+        // Set the weather icon based on the weather description
+        if (windSpeed <= 8) {
+            show_IMG_flag.setImageResource(R.drawable.ic_whiteflag);
+        } else if (windSpeed > 8 && windSpeed <= 15) {
+            show_IMG_flag.setImageResource(R.drawable.ic_redflag);
+        } else if (windSpeed > 15) {
+            show_IMG_flag.setImageResource(R.drawable.ic_blackflag);
+        }
     }
 
     private void createListeners() {
@@ -354,6 +390,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         show_TXT_distance = findViewById(R.id.show_TXT_distance);
         show_TXT_warmth = findViewById(R.id.show_TXT_warmth);
         show_TXT_hygiene = findViewById(R.id.show_TXT_hygiene);
+        show_IMG_flag = findViewById(R.id.show_IMG_flag);
+        show_IMG_weather = findViewById(R.id.show_IMG_weatherIcon);
     }
 
     private double getDistance(LatLng location1, LatLng location2) {
