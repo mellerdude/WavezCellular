@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
     private ArrayAdapter<CharSequence> adapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean hasPremission;
+    private boolean beachFound = false;
     private double userLon = 0, userLat = 0;
     private Bundle bundle = null;
     private FirebaseUser firebaseUser;
@@ -69,7 +71,6 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
             bundle = new Bundle();
         }
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -79,7 +80,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
                     userLat = location.getLatitude();
                     userLon = location.getLongitude();
                     findNearestBeach(userLat, userLon);
-
+                    beachFound = true;
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -157,12 +158,16 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
 
 
     private void replaceActivityShow() {
-        Intent intent;
-        bundle.putString("BEACH_NAME", BeachName);
-        intent = new Intent(this, ShowActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
+        if(beachFound && BeachName != null) {
+            Intent intent;
+            bundle.putString("BEACH_NAME", BeachName);
+            intent = new Intent(this, ShowActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(getApplicationContext(), "Still searching, please wait", Toast.LENGTH_SHORT).show();
+        }
     }
     private void replaceActivityWelcome(String state) {
         Intent intent;
