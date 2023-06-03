@@ -18,6 +18,7 @@ import com.example.wavezcellular.Interfaces.testActionsListener;
 import com.example.wavezcellular.R;
 import com.example.wavezcellular.utils.User;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
         findViews();
         getCurrentUsersData();
         createListeners();
-        report_TXT_nameBeach.setText("" + BeachName);
+        ShowActivity.setBeachName((MaterialTextView) report_TXT_nameBeach, null, BeachName);
     }
 
     private void createListeners() {

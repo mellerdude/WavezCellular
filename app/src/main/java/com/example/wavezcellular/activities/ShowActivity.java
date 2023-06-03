@@ -54,7 +54,7 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
     private final double LOW_VALUE = 1.5;
     private MaterialButton show_BTN_back, show_BTN_reports,show_BTN_create_report, show_BTN_waze, show_BTN_moovit;
     private ImageView show_IMG_profile;
-    private MaterialTextView show_TXT_nameBeach, show_TXT_temperature, show_TXT_distance;
+    private MaterialTextView show_TXT_nameBeach, show_TXT_temperature, show_TXT_distance, show_TXT_nameCity;
 
     private TextView show_TXT_jellyfish, show_TXT_density, show_TXT_danger, show_TXT_wind, show_TXT_accessible, show_TXT_dog, show_TXT_warmth, show_TXT_hygiene;
 
@@ -122,7 +122,7 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
     }
 
     private void showInfo() {
-        show_TXT_nameBeach.setText("" + BeachName);
+        setBeachName(show_TXT_nameBeach, show_TXT_nameCity, BeachName);
         myRef.child(BeachName).child("Data").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -226,6 +226,17 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
 
             }
         });
+    }
+
+    public static void setBeachName(MaterialTextView viewName, MaterialTextView viewCity, String fullName) {
+        String name;
+        String city;
+        String[] nameArray = fullName.split("beach");
+        name = nameArray[0] + " Beach";
+        city = nameArray[1];
+        viewName.setText("" + name);
+        if(viewCity != null)
+            viewCity.setText("" + city);
     }
 
     private void configureSkyIcon(String skyDesc){
@@ -401,6 +412,7 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         show_TXT_hygiene = findViewById(R.id.show_TXT_hygiene);
         show_IMG_flag = findViewById(R.id.show_IMG_flag);
         show_IMG_weather = findViewById(R.id.show_IMG_weatherIcon);
+        show_TXT_nameCity = findViewById(R.id.show_TXT_nameCity);
     }
 
     private double getDistance(LatLng location1, LatLng location2) {

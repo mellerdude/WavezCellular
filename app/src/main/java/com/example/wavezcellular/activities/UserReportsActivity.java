@@ -17,6 +17,7 @@ import com.example.wavezcellular.R;
 import com.example.wavezcellular.adapters_holders.UserReportAdapter;
 import com.example.wavezcellular.utils.UserReport;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +60,7 @@ public class UserReportsActivity extends AppCompatActivity {
 
         findViews();
         createListeners();
-        userReports_TXT_nameBeach.setText("" + BeachName);
+        ShowActivity.setBeachName((MaterialTextView) userReports_TXT_nameBeach, null , BeachName);
         getReports();
     }
 

@@ -13,12 +13,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical"
         >
-        <View
-            android:id="@+id/welcome_LOGO_wavez"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/wave_icon"
-             />
+
 
 
         <com.google.android.material.button.MaterialButton
@@ -40,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical">
 
 
