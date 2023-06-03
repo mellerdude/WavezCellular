@@ -20,12 +20,18 @@
             android:background="@color/water"
             android:orientation="horizontal">
 
-            <View
-                android:id="@+id/report_LOGO_wavez"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/wave_icon"
-                tools:ignore="MissingConstraints" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/report_BTN_back"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/water"
+                app:icon="@drawable/ic_baseline_arrow_back_24"
+                app:iconTint="@color/white"
+                tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/report_IMG_profile"
@@ -45,27 +51,16 @@
             android:weightSum="5">
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/report_BTN_back"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                app:backgroundTint="@color/water"
-                app:icon="@drawable/ic_baseline_arrow_back_24"
-                app:iconTint="@color/white"
-                tools:ignore="SpeakableTextPresentCheck" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/report_TXT_nameBeach"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="4"
                 android:text="Gils Beach"
-                android:textAlignment="textStart"
+                android:textAlignment="center"
                 android:textColor="@color/main_title_text"
                 android:textSize="40sp"
                 android:textStyle="bold"
