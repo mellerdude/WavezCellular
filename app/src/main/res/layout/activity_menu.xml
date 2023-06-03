@@ -146,6 +146,7 @@
             android:text="Search Another"
             app:backgroundTint="@color/sea"
             app:icon="@drawable/looking_glass"
+            app:iconTint="@color/white"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:cornerRadius="40dp"
