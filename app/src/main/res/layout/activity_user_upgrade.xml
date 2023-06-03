@@ -210,7 +210,21 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/profile_BTN_change"
+            android:id="@+id/profile_BTN_changePic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/user_change_picture"
+            android:textAllCaps="false"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/sea"
+            app:cornerRadius="40dp"
+            android:fontFamily="@font/poppins">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile_BTN_changeName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/user_change_name"

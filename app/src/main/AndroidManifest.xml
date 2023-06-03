@@ -14,9 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WavezCellular">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/secret_google_api" />
+
+        <activity
+            android:name=".activities.UserPictureActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <activity
             android:name=".activities.ShowActivity"
@@ -42,7 +52,6 @@
             android:name=".activities.UserActivityUpgrade"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
-
         <activity
             android:name=".activities.MapActivity"
             android:exported="true"

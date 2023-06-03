@@ -326,7 +326,7 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             // Show the Alert Dialog box
             alertDialog.show();
         }else{
-            replaceActivity("Report");
+            replaceActivity("CreateReport");
         }
     }
 
@@ -384,6 +384,13 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         if (mode.equals("Welcome")) {
             intent = new Intent(this, WelcomeActivity.class);
             bundle.putString("LOGIN_STATE", "login");
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        }
+        if(mode.equals("CreateReport")){
+            intent = new Intent(this, ReportActivity.class);
+            bundle.putString("BEACH_NAME", BeachName);
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
