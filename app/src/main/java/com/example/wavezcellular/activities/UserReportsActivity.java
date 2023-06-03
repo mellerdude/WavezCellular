@@ -133,7 +133,7 @@ public class UserReportsActivity extends AppCompatActivity {
                 if (data != null) {
                     for (Map.Entry<String, HashMap<String, Object>> set :
                             data.entrySet()) {
-                        list.add(new UserReport(set.getKey(), set.getValue()));
+                        list.add(new UserReport(set.getValue()));
                     }
                 }
                 createReportsRec(list);

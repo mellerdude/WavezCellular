@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.wavezcellular.Interfaces.testActionsListener;
 import com.example.wavezcellular.R;
 import com.example.wavezcellular.utils.ActivityManager;
+import com.example.wavezcellular.utils.Demo;
 import com.example.wavezcellular.utils.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -44,7 +45,6 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
 
     private ActivityManager activityManager;
     public static String distance = "", closestBeach = "";
-    private final double DEF_REVIEW_VAL = 3.0;
     private MaterialButton menu_BTN_beachFound, menu_BTN_beachdetails, menu_BTN_searchBeach, menu_BTN_signIn,menu_BTN_signUp;
     private TextView menu_TXT_Distance;
     private ArrayAdapter<CharSequence> adapter;
@@ -60,6 +60,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         activityManager = new ActivityManager(this);
@@ -73,6 +74,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        //Demo demo = new Demo(this.getApplicationContext(), fusedLocationProviderClient, myRef);
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -206,25 +208,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
         return (SphericalUtil.computeDistanceBetween(location1, location2) / 1000);
     }
 
-    public void setItemsForDemo() {
-        adapter = ArrayAdapter.createFromResource(this, R.array.beaches, android.R.layout.simple_spinner_item);
-        for (int i = 0; i < adapter.getCount(); i++) {
-            String location = adapter.getItem(i).toString();
-            myRef.child(location).child("Data").child("latitude").setValue(0);
-            myRef.child(location).child("Data").child("longitude").setValue(0);
-            myRef.child(location).child("Data").child("name").setValue(location);
-            myRef.child(location).child("Data").child("review").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("warmth").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("danger").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("wind").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("jellyfish").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("density").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("dog").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("accessible").setValue(DEF_REVIEW_VAL);
-            myRef.child(location).child("Data").child("hygiene").setValue(DEF_REVIEW_VAL);
 
-        }
-    }
 
 
     @Override

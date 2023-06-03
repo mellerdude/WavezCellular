@@ -8,16 +8,20 @@ public class UserReport {
     //private DatabaseReference photoRef;
     private String name;
     private String comment;
-    //private int photo;
+    private int photo = 0;
 
 
 
     private HashMap<String, Object> parameters = new HashMap<>();
 
-    public UserReport(String name, HashMap<String, Object> parameters){
-        this.name = name;
+    public UserReport(HashMap<String, Object> parameters){
         this.parameters = parameters;
         this.comment = (String) parameters.get("comment");
+        this.name = (String)parameters.get("name");
+        if(parameters.get("photo") != null) {
+            long photoVal = (Long)parameters.get("photo");
+            photo = (int) photoVal;
+        }
     }
 
     public Object getValue(String value){
@@ -48,11 +52,11 @@ public class UserReport {
         this.comment = comment;
     }
 
-    /*public int getPhoto() {
+    public int getPhoto() {
         return photo;
     }
 
     public void setPhoto(int photo) {
         this.photo = photo;
-    }*/
+    }
 }
