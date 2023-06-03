@@ -45,6 +45,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
     private boolean isGuest;
     private User user;
     //private String user;
+    private int photoResourceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +78,8 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
                     if (dataSnapshot.exists()) {
                         photo = dataSnapshot.getValue(String.class);
                         // Use the retrieved photo URL as needed
-                        int resourceId = getResources().getIdentifier(photo, "drawable", getPackageName());
-                        report_IMG_profile.setImageResource(resourceId);
+                        photoResourceId = getResources().getIdentifier(photo, "drawable", getPackageName());
+                        report_IMG_profile.setImageResource(photoResourceId);
                     }
                 }
 
@@ -150,13 +151,14 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
     }
 
     public void addSubmiterData() {
-        String username = user.getName();
-        myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports").child(username);
+        myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports").child(userID);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                myRef.child("name").setValue(user.getName());
+                myRef.child("photo").setValue(photoResourceId);
                 myRef.child("review").setValue(report_RB_review.getRating());
                 myRef.child("density").setValue(report_SB_density.getProgress() / 20);
                 myRef.child("jellyfish").setValue(report_SB_jellyfish.getProgress() / 20);

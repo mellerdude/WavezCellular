@@ -249,12 +249,12 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
                 else
                     show_TXT_hygiene.setText("Hygiene: OK");
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
     }
 
     public static void setBeachName(MaterialTextView viewName, MaterialTextView viewCity, String fullName) {
