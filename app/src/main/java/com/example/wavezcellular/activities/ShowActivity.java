@@ -66,10 +66,12 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
     private double longitude;
     private FirebaseUser firebaseUser;
     private DatabaseReference myRef;
+    private DatabaseReference photoRef;
     private Context context;
     private double userLat;
     private double userLon;
-    private String user;
+    private String userID;
+    private String photo;
     private boolean isGuest;
     private boolean hasPremission;
     private Resources resources;
@@ -114,10 +116,37 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         isGuest = firebaseUser == null;
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
 
+
         findViews();
         createListeners();
         showInfo();
+        showProfilePic();
+    }
 
+    private void showProfilePic() {
+        if(isGuest){
+            show_IMG_profile.setImageResource(R.drawable.ic_user);
+        }else{
+            userID = firebaseUser.getUid();
+            photoRef = FirebaseDatabase.getInstance().getReference("Users").child(userID).child("Photo");
+
+            photoRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        photo = dataSnapshot.getValue(String.class);
+                        // Use the retrieved photo URL as needed
+                        int resourceId = getResources().getIdentifier(photo, "drawable", getPackageName());
+                        show_IMG_profile.setImageResource(resourceId);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle the error condition if needed
+                }
+            });
+        }
 
     }
 

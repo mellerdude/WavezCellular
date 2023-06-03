@@ -67,8 +67,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayAdapter<CharSequence> adapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean isGuest;
+    private String userID;
+    private String photo;
     //firebase
     private FirebaseUser firebaseUserUser;
+    private DatabaseReference photoRef;
 
     private double userLat;
     private double userLon;
@@ -113,8 +116,36 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         //setItemsForDemo();
         createSpinner();
         createListener();
+        showProfilePic();
+    }
+
+    private void showProfilePic() {
+        if(isGuest){
+            home_IMG_profile.setImageResource(R.drawable.ic_user);
+        }else{
+            userID = firebaseUserUser.getUid();
+            photoRef = FirebaseDatabase.getInstance().getReference("Users").child(userID).child("Photo");
+
+            photoRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        photo = dataSnapshot.getValue(String.class);
+                        // Use the retrieved photo URL as needed
+                        int resourceId = getResources().getIdentifier(photo, "drawable", getPackageName());
+                        home_IMG_profile.setImageResource(resourceId);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle the error condition if needed
+                }
+            });
+        }
 
     }
+
 
     private void createBeaches(ArrayList<Map.Entry<String, Double>> list) {
         if (orderBy == 0)

@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class UserReportsActivity extends AppCompatActivity {
     private String BeachName;
     private FirebaseUser firebaseUser;
     private DatabaseReference myRef;
+    private DatabaseReference userRef;
+    private DatabaseReference photoRef;
     private boolean isGuest;
 
 
@@ -57,6 +60,8 @@ public class UserReportsActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         isGuest = firebaseUser == null;
         myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports");
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
+
 
         findViews();
         createListeners();
@@ -114,13 +119,16 @@ public class UserReportsActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void getReports() {
+        ArrayList<UserReport> list = new ArrayList<>();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                ArrayList<UserReport> list = new ArrayList<>();
+                //ArrayList<UserReport> list = new ArrayList<>();
                 HashMap<String, HashMap<String, Object>> data = (HashMap) dataSnapshot.getValue(Object.class);
                 if (data != null) {
                     for (Map.Entry<String, HashMap<String, Object>> set :
@@ -129,8 +137,6 @@ public class UserReportsActivity extends AppCompatActivity {
                     }
                 }
                 createReportsRec(list);
-
-
             }
 
             @Override
@@ -139,6 +145,8 @@ public class UserReportsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void createReportsRec(ArrayList<UserReport> list) {
         userReports_RecycleView_reports.setLayoutManager(new LinearLayoutManager(this));

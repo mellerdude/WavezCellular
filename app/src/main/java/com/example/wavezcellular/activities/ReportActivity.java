@@ -38,8 +38,11 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
     private String BeachName;
     private FirebaseUser firebaseUser;
     private DatabaseReference myRef;
+    private DatabaseReference photoRef;
     private String guest;
     private String userID;
+    private String photo;
+    private boolean isGuest;
     private User user;
     //private String user;
 
@@ -59,6 +62,33 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
         getCurrentUsersData();
         createListeners();
         ShowActivity.setBeachName((MaterialTextView) report_TXT_nameBeach, null, BeachName);
+        showProfilePic();
+    }
+    private void showProfilePic() {
+        if(isGuest){
+            report_IMG_profile.setImageResource(R.drawable.ic_user);
+        }else{
+            userID = firebaseUser.getUid();
+            photoRef = FirebaseDatabase.getInstance().getReference("Users").child(userID).child("Photo");
+
+            photoRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        photo = dataSnapshot.getValue(String.class);
+                        // Use the retrieved photo URL as needed
+                        int resourceId = getResources().getIdentifier(photo, "drawable", getPackageName());
+                        report_IMG_profile.setImageResource(resourceId);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle the error condition if needed
+                }
+            });
+        }
+
     }
 
     private void createListeners() {
@@ -95,7 +125,8 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
 
     public void getCurrentUsersData() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser == null) {
+        isGuest = firebaseUser == null;
+        if (isGuest) {
             String guest = generateGuest();
             user = new User(guest, "No Email Available");
         } else {

@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wavezcellular.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
 public class UserReportHolder extends RecyclerView.ViewHolder {
     MaterialTextView name;
     MaterialTextView comment;
     RatingBar rating;
+    ShapeableImageView photo;
     //LinearLayout layout;
     public UserReportHolder(@NonNull View itemView) {
         super(itemView);
@@ -20,5 +22,6 @@ public class UserReportHolder extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.userReports_TXT_username);
         comment = itemView.findViewById(R.id.userReports_TXT_blurb);
         rating = itemView.findViewById(R.id.userReports_RB_review);
+        photo = itemView.findViewById(R.id.userReports_IMG_profile);
     }
 }
