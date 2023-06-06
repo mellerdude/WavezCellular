@@ -1,28 +1,39 @@
 package com.example.wavezcellular.utils;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
 public class UserReport {
-    //private DatabaseReference photoRef;
     private String name;
     private String comment;
     private int photo = 0;
-
+    private Resources res;
+    private Context context;
 
 
     private HashMap<String, Object> parameters = new HashMap<>();
 
-    public UserReport(HashMap<String, Object> parameters){
+    public UserReport(HashMap<String, Object> parameters, String photo, Context applicationContext){
+        context = applicationContext;
+        res = context.getResources();
         this.parameters = parameters;
         this.comment = (String) parameters.get("comment");
         this.name = (String)parameters.get("name");
         if(parameters.get("photo") != null) {
-            long photoVal = (Long)parameters.get("photo");
-            photo = (int) photoVal;
+            createPhoto(photo==null, photo, (String)parameters.get("photo"));
         }
     }
+
+
 
     public Object getValue(String value){
         if(value.equalsIgnoreCase("comment"))
@@ -52,11 +63,20 @@ public class UserReport {
         this.comment = comment;
     }
 
-    public int getPhoto() {
-        return photo;
+    private void createPhoto(boolean isDemo_User, String userPhoto, String demoPhoto) {
+        if(isDemo_User){
+            photo = res.getIdentifier(demoPhoto, "drawable", context.getPackageName());
+        }else{
+            photo = res.getIdentifier(userPhoto, "drawable", context.getPackageName());
+        }
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
+
+        public int getPhoto () {
+            return photo;
+        }
+        public void setPhoto ( int photo){
+            this.photo = photo;
+        }
+
     }
-}

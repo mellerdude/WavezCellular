@@ -44,12 +44,14 @@ public class UserReportsActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private DatabaseReference photoRef;
     private boolean isGuest;
+    private HashMap<String,String> usersPhotos;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reports);
+        usersPhotos = new HashMap<>();
         bundle = getIntent().getExtras();
         if (bundle != null) {
             BeachName = bundle.getString("BEACH_NAME");
@@ -66,6 +68,7 @@ public class UserReportsActivity extends AppCompatActivity {
         findViews();
         createListeners();
         ShowActivity.setBeachName((MaterialTextView) userReports_TXT_nameBeach, null , BeachName);
+        getUserPhotos();
         getReports();
     }
 
@@ -119,6 +122,28 @@ public class UserReportsActivity extends AppCompatActivity {
         }
     }
 
+    private void getUserPhotos(){
+        userRef.addListenerForSingleValueEvent(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, HashMap<String, Object>> data = (HashMap) dataSnapshot.getValue(Object.class);
+                if (data != null) {
+                    for (Map.Entry<String, HashMap<String, Object>> set :
+                            data.entrySet()) {
+                        usersPhotos.put(set.getKey(), (String) set.getValue().get("Photo"));
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
 
     private void getReports() {
@@ -128,12 +153,11 @@ public class UserReportsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                //ArrayList<UserReport> list = new ArrayList<>();
                 HashMap<String, HashMap<String, Object>> data = (HashMap) dataSnapshot.getValue(Object.class);
                 if (data != null) {
                     for (Map.Entry<String, HashMap<String, Object>> set :
                             data.entrySet()) {
-                        list.add(new UserReport(set.getValue()));
+                        list.add(new UserReport(set.getValue(), (String)usersPhotos.get(set.getKey()), getApplicationContext()));
                     }
                 }
                 createReportsRec(list);
