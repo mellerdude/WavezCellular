@@ -36,9 +36,7 @@ public class UserReportAdapter extends RecyclerView.Adapter<UserReportHolder> {
         double reviewDouble = ShowActivity.getDouble(o);
         holder.rating.setRating((float) reviewDouble);
         if(userReports.get(position).getPhoto() != 0) {
-            long photoVal = (long) userReports.get(position).getValue("photo");
-            int photo = (int) photoVal;
-            holder.photo.setImageResource(photo);
+            holder.photo.setImageResource(userReports.get(position).getPhoto());
         }
     }
 
