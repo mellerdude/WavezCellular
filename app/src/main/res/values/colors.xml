@@ -2,7 +2,7 @@
 <resources>
     <color name="blue_back">#597af2</color>
     <color name="blue_logo">#1D31CD</color>
-    <color name="blue_text">#8AB6D6</color>
+    <color name="blue_text">#0B1CA6</color>
     <color name="blue_card">#857AF0FF</color>
     <color name="blue_text_card">#0A6E9F</color>
     <color name="blue_text_report">#000A47</color>
