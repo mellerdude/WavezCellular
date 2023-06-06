@@ -158,7 +158,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 myRef.child("name").setValue(user.getName());
-                myRef.child("photo").setValue(photoResourceId);
+                myRef.child("photo").setValue(photo);
                 myRef.child("review").setValue(report_RB_review.getRating());
                 myRef.child("density").setValue(report_SB_density.getProgress() / 20);
                 myRef.child("jellyfish").setValue(report_SB_jellyfish.getProgress() / 20);

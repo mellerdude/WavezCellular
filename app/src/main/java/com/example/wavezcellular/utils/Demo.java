@@ -85,7 +85,7 @@ public class Demo extends AppCompatActivity {
                     myRef.child(beachName).child("Reports").setValue(null);
                     for (int j = 0; j < DEF_REPORTS; j++) {
                         String name = generateRandomName();
-                        int photo = generateRandomPhoto();
+                        String photo = generateRandomPhoto();
                         String email = "not@important.com";
                         myRef.child(beachName).child("Reports").child("DEMO_USER_" + j).child("name").setValue(name);
                         myRef.child(beachName).child("Reports").child("DEMO_USER_" + j).child("email").setValue(email);
@@ -111,13 +111,12 @@ public class Demo extends AppCompatActivity {
     }
 
     private double generateRandomNumber() {
-        return random.nextDouble() * MAX_REVIEW_VAL;
+        return DEF_REVIEW_VAL + (random.nextDouble() * (MAX_REVIEW_VAL-DEF_REVIEW_VAL));
     }
 
-    private int generateRandomPhoto() {
+    private String generateRandomPhoto() {
         int num = random.nextInt(20) + 1;
-        int res = resources.getIdentifier("ic_user" + num, "drawable", context.getPackageName());
-        return res;
+        return "ic_user" + num;
     }
 
     private String generateRandomName() {
