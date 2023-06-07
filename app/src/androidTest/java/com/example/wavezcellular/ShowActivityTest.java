@@ -5,34 +5,19 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.Instrumentation;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.example.wavezcellular.activities.MenuActivity;
-import com.example.wavezcellular.activities.ReportActivity;
 import com.example.wavezcellular.activities.ShowActivity;
-import com.example.wavezcellular.activities.UserActivity;
 
-import static androidx.test.espresso.intent.matcher.IntentMatchers.*;
-import static androidx.test.espresso.intent.Intents.*;
-import static androidx.test.espresso.intent.Intents.intending;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasData;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -40,14 +25,10 @@ import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
