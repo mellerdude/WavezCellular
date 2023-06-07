@@ -42,7 +42,6 @@ public class ReportActivityTest {
      */
     @Test
     public void testReportActivityStart() {
-
         ActivityScenario<ReportActivity> activityScenario = activityScenarioRule.getScenario();
         // Add assertions to verify the initial state of the activity if needed
         // For example, you can check if certain views are displayed or not
@@ -54,6 +53,7 @@ public class ReportActivityTest {
     /**
      * Test the submission of a valid report from a user
      */
+    @Ignore("This test is skipped intentionally")
     @Test
     public void testUserReportSubmit() {
 

@@ -26,7 +26,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+/**
+ * ReportActivity
+ * Activity responsible for allowing the user to report on the beach
+ * The activity shows the user sliders for each category and a rating bar to rate the beach as well as enabling him to leave a comment
+ * This activity can only be accessed by signed in users.
+ * The user can also:
+ *      go back to the ShowActivity of that beach
+ */
 public class ReportActivity extends AppCompatActivity implements testActionsListener {
     private TextView report_TXT_nameBeach;
     private MaterialButton report_BTN_back, report_BTN_submit;
@@ -124,9 +131,11 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
         });
     }
 
+    //get user data to later submit with
     public void getCurrentUsersData() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         isGuest = firebaseUser == null;
+        //for tests
         if (isGuest) {
             String guest = generateGuest();
             user = new User(guest, "No Email Available");
@@ -150,6 +159,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
 
     }
 
+    //Save each category value to the database for that user
     public void addSubmiterData() {
         myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports").child(userID);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

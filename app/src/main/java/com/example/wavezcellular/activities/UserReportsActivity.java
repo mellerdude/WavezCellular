@@ -31,6 +31,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * UserReportsActivity
+ * Activity to show all reports submitted by the users.
+ * Each report shows the user's review of the beach and a blurb about it.
+ * User can choose to add a report if he's signed in, otherwise he can go sign in/sign up
+ * User can also go back to the showActivity
+ */
 public class UserReportsActivity extends AppCompatActivity {
     private final int MAX_NUM = 5;
     private TextView userReports_TXT_nameBeach;
