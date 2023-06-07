@@ -8,9 +8,14 @@ import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -25,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,67 +40,123 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class ReportActivityTest {
 
-    @Rule
-    public ActivityScenarioRule<ReportActivity> activityScenarioRule =
-            new ActivityScenarioRule<>(ReportActivity.class);
+    public final String DEFAULT_BEACH = "Bugrashov beach Tel Aviv";
+    private Intent intent;
+    private ActivityScenario<ReportActivity> activityScenario;
+    @Before
+    public void setup() {
+        // Initialize Intents
+        Intents.init();
+        // Create a new intent
+        intent = new Intent(ApplicationProvider.getApplicationContext(), ReportActivity.class);
+
+        // Create a bundle and put the extra data
+        Bundle bundle = new Bundle();
+        bundle.putString("BEACH_NAME", DEFAULT_BEACH);
+
+        intent.putExtras(bundle);
+    }
 
     /**
      * Test that the activity starts without any issues
      */
     @Test
     public void testReportActivityStart() {
-        ActivityScenario<ReportActivity> activityScenario = activityScenarioRule.getScenario();
+        activityScenario = ActivityScenario.launch(intent);
         // Add assertions to verify the initial state of the activity if needed
         // For example, you can check if certain views are displayed or not
         Espresso.onView(ViewMatchers.withId(R.id.report_EditTXT_comment))
                 .check(matches(isDisplayed()));
-        activityScenario.close();
     }
 
     /**
      * Test the submission of a valid report from a user
      */
-    @Ignore("This test is skipped intentionally")
     @Test
     public void testUserReportSubmit() {
+        // Launch the activity
+        activityScenario = ActivityScenario.launch(intent);
 
-
-        ActivityScenario<ReportActivity> activityScenario = activityScenarioRule.getScenario();
+        // Sign in with a test user
         FirebaseAuth.getInstance().signOut();
         FirebaseAuth.getInstance().signInWithEmailAndPassword("xowafec498@duscore.com","123456");
+        try {
+            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Perform actions on the report activity
         activityScenario.onActivity(reportActivity -> {
-            // Call the clearUser method on the main application thread if needed
-            reportActivity.runOnUiThread(reportActivity::testAction);
+            // Call the testAction method on the main application thread if needed
+            //reportActivity.runOnUiThread(reportActivity::testAction);
         });
 
+        // Wait for the report to be submitted
+        try {
+            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Enter a valid report comment
         String comment = "TestReportSubmit";
         Espresso.onView(ViewMatchers.withId(R.id.report_EditTXT_comment))
                 .perform(ViewActions.typeText(comment));
 
+        // Simulate pressing the "Back" button
+        Espresso.onView(ViewMatchers.isRoot())
+                .perform(ViewActions.pressBack());
+        // Wait for the report to be submitted
+        try {
+            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Submit the report
         Espresso.onView(ViewMatchers.withId(R.id.report_BTN_submit))
                 .perform(ViewActions.click());
+
+        // Wait for the report to be submitted
         try {
-            Thread.sleep(2000); // Delay of 1 second (adjust as needed)
+            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         // Verify that the report was submitted successfully
         Espresso.onView(ViewMatchers.withId(R.id.show_BTN_reports))
                 .perform(ViewActions.click());
-        try {
-            Thread.sleep(2000); // Delay of 1 second (adjust as needed)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        // Scroll and search for the comment
+        boolean commentFound = false;
+        while (!commentFound) {
+            try {
+                Thread.sleep(1000); // Delay of 1 second (adjust as needed)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // Scroll the view
+            Espresso.onView(ViewMatchers.withId(R.id.userReports_RecyclerView_reports))
+                    .perform(ViewActions.swipeUp());
+
+            // Check if the comment is displayed
+            try {
+                Espresso.onView(ViewMatchers.withText(comment))
+                        .check(matches(isDisplayed()));
+                commentFound = true;
+            } catch (Exception ignored) {
+                // Comment not found, continue scrolling
+            }
         }
-        Espresso.onView(ViewMatchers.withText(comment))
-                .check(matches(isDisplayed()));
+
+        // Remove the user report
         removeUserReportByComment(comment);
+
+        // Sign out
         FirebaseAuth.getInstance().signOut();
-        // Close the activity scenario
-        activityScenario.close();
+
     }
+
 
 
     /**
@@ -102,7 +165,8 @@ public class ReportActivityTest {
     @Test
     public void testNavigatingBack() {
         FirebaseAuth.getInstance().signOut();
-        ActivityScenario<ReportActivity> activityScenario = activityScenarioRule.getScenario();
+
+        activityScenario = ActivityScenario.launch(intent);
 
         activityScenario.onActivity(reportActivity -> {
             // Call the clearUser method on the main application thread if needed
@@ -129,11 +193,9 @@ public class ReportActivityTest {
     /**
      * Test navigating to profile from reportActivity
      */
-    @Ignore("This test is skipped intentionally")
     @Test
     public void testNavigatingProfile() {
-        ActivityScenario<ReportActivity> activityScenario = activityScenarioRule.getScenario();
-
+        activityScenario = ActivityScenario.launch(intent);
         FirebaseAuth.getInstance().signOut();
         FirebaseAuth.getInstance().signInWithEmailAndPassword("xowafec498@duscore.com","123456");
 
@@ -154,7 +216,7 @@ public class ReportActivityTest {
         }
 
         // Verify that a view in ShowActivity is displayed
-        Espresso.onView(ViewMatchers.withId(R.id.user_TXT_name))
+        Espresso.onView(ViewMatchers.withId(R.id.profile_IMG_picture))
                 .check(matches(isDisplayed()));
 
     }
@@ -179,7 +241,11 @@ public class ReportActivityTest {
         });
     }
 
-
+    @After
+    public void closeTest() {
+        activityScenario.close();
+        Intents.release();
+    }
 
 }
 
