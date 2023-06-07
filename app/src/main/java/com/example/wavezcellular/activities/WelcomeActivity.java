@@ -25,6 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * WelcomeActivity
+ * Activity to enable the user to login if he has signed up previously or sign up.
+ * After signing in switch to HomeActivity
+ * After signing up switch to login to login with new user
+ * User can go back to MenuActivity
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

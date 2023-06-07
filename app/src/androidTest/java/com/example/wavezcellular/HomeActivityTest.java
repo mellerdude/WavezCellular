@@ -165,6 +165,14 @@ public class HomeActivityTest {
         String nameToFind = "Bugrashov";
         onView(ViewMatchers.withId(R.id.home_EditTXT_byName))
                 .perform(ViewActions.typeText(nameToFind));
+        onView(ViewMatchers.withId(R.id.home_BTN_name))
+                .perform(ViewActions.click());
+        try {
+            // Wait for the RecyclerView to be ready (adjust the sleep time as needed)
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         activityScenario.onActivity(activity -> {
             RecyclerView recyclerView = activity.findViewById(R.id.home_RecyclerView_rec);
             BeachHomeAdapter adapter = (BeachHomeAdapter) recyclerView.getAdapter();

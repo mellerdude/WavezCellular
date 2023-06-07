@@ -90,7 +90,6 @@ public class ShowActivityTest {
                 .check(matches(isDisplayed()));
 
     }
-    @Ignore("This test is skipped intentionally")
     @Test
     public void testProfileButton() {
 
@@ -99,7 +98,7 @@ public class ShowActivityTest {
         onView(ViewMatchers.withId(R.id.show_IMG_profile))
                 .perform(click());
 
-        onView(ViewMatchers.withId(R.id.user_TXT_name))
+        onView(ViewMatchers.withId(R.id.profile_IMG_picture))
                 .check(matches(isDisplayed()));
 
     }
