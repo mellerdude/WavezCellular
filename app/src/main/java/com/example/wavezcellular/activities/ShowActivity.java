@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.wavezcellular.Interfaces.testActionsListener;
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -52,12 +53,12 @@ import java.util.Scanner;
 public class ShowActivity extends AppCompatActivity implements testActionsListener {
     private final double HIGH_VALUE = 3.5;
     private final double LOW_VALUE = 1.5;
+    private ActivityManager activityManager;
     private MaterialButton show_BTN_back, show_BTN_reports,show_BTN_create_report, show_BTN_waze, show_BTN_moovit;
     private ImageView show_IMG_profile;
     private MaterialTextView show_TXT_nameBeach, show_TXT_temperature, show_TXT_distance, show_TXT_nameCity;
-
-    private TextView show_TXT_jellyfish, show_TXT_density, show_TXT_danger, show_TXT_wind, show_TXT_accessible, show_TXT_dog, show_TXT_warmth, show_TXT_hygiene;
-
+    private TextView show_TXT_jellyfish, show_TXT_density, show_TXT_danger,
+            show_TXT_wind, show_TXT_accessible, show_TXT_dog, show_TXT_warmth, show_TXT_hygiene;
     private ShapeableImageView show_IMG_flag, show_IMG_weather;
     private RatingBar show_RB_review;
     private Bundle bundle;
@@ -75,9 +76,7 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
     private boolean isGuest;
     private boolean hasPremission;
     private Resources resources;
-
     private FusedLocationProviderClient fusedLocationProviderClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +84,11 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         checkPermission();
         setContentView(R.layout.activity_show);
         this.context = this.getApplicationContext();
+        activityManager = new ActivityManager(this);
         resources = context.getResources();
         bundle = getIntent().getExtras();
         if (bundle != null)
             BeachName = bundle.getString("BEACH_NAME");
-
          else {
             this.bundle = new Bundle();
             BeachName = "";
@@ -101,7 +100,6 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
                 if (location != null) {
                     userLat = location.getLatitude();
                     userLon = location.getLongitude();
-
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -112,10 +110,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             }
         });
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         isGuest = firebaseUser == null;
         myRef = FirebaseDatabase.getInstance().getReference("Beaches");
-
 
         findViews();
         createListeners();
@@ -147,7 +143,6 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
                 }
             });
         }
-
     }
 
     private void showInfo() {
@@ -298,16 +293,16 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         show_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceActivity("Home");
+                activityManager.startActivity(HomeActivity.class,bundle);
             }
         });
         show_IMG_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isGuest){
-                    replaceActivity("Welcome");
+                    goToWelcome();
                 }else{
-                    replaceActivity("Profile");
+                    activityManager.startActivity(UserActivityUpgrade.class,bundle);
                 }
             }
         });
@@ -348,20 +343,20 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             });
             builder.setNegativeButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 // When the user click yes button then app will take it to the register/login page
-                replaceActivity("Welcome");
+                goToWelcome();
+
             });
             // Create the Alert dialog
             AlertDialog alertDialog = builder.create();
             // Show the Alert Dialog box
             alertDialog.show();
         }else{
-            replaceActivity("CreateReport");
+             activityManager.startActivity(ReportActivity.class,bundle);
         }
     }
 
     private void clickOnReports(){
-
-        replaceActivity("Report");
+        activityManager.startActivity(UserReportsActivity.class,bundle);
     }
 
     private void clickOnWaze() {
@@ -388,44 +383,10 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         }
     }
 
-    private void replaceActivity(String mode) {
-        Intent intent;
-        if (mode.equals("Profile")) {
-            intent = new Intent(this, UserActivityUpgrade.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-        if (mode.equals("Report")) {
-            intent = new Intent(this, UserReportsActivity.class);
-            bundle.putString("BEACH_NAME", BeachName);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-        if (mode.equals("Home")) {
-            intent = new Intent(this, HomeActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-
-        if (mode.equals("Welcome")) {
-            intent = new Intent(this, WelcomeActivity.class);
-            bundle.putString("LOGIN_STATE", "login");
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-        if(mode.equals("CreateReport")){
-            intent = new Intent(this, ReportActivity.class);
-            bundle.putString("BEACH_NAME", BeachName);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
+    public void goToWelcome(){
+        bundle.putString("LOGIN_STATE", "login");
+        activityManager.startActivity(WelcomeActivity.class,bundle);
     }
-
 
     private void findViews() {
         show_BTN_reports = findViewById(R.id.show_BTN_reports);

@@ -71,7 +71,7 @@ public class ShowActivityTest {
                 .check(matches(isDisplayed()));
 
     }
-    @Ignore("This test is skipped intentionally")
+   /* @Ignore("This test is skipped intentionally")
     @Test
     public void testProfileButton() {
 
@@ -83,7 +83,7 @@ public class ShowActivityTest {
         onView(ViewMatchers.withId(R.id.user_TXT_name))
                 .check(matches(isDisplayed()));
 
-    }
+    }*/
 
     @Test
     public void testWazeButton() {

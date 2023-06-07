@@ -50,9 +50,6 @@
             android:orientation="horizontal"
             android:weightSum="5">
 
-
-
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/report_TXT_nameBeach"
                 android:layout_width="match_parent"
@@ -64,9 +61,8 @@
                 android:textColor="@color/main_title_text"
                 android:textSize="40sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/lobster"></com.google.android.material.textview.MaterialTextView>
-
-
+                android:fontFamily="@font/lobster">
+            </com.google.android.material.textview.MaterialTextView>
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -80,21 +76,19 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:fontFamily="@font/poppins"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
         android:background="@drawable/shapes"
         android:layout_marginHorizontal="20dp"
-        android:backgroundTint="@color/blue_text_card"
-        >
+        android:backgroundTint="@color/blue_text_card">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/report_IMG_comment"
@@ -103,14 +97,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-           <!-- <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/conversation">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -124,9 +110,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <EditText
                     android:id="@+id/report_EditTXT_comment"
@@ -135,7 +119,6 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/poppins"
                     android:hint="Write what's on your mind">
-
                 </EditText>
             </LinearLayout>
 
@@ -147,14 +130,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-           <!-- <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/star">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -168,7 +143,6 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -177,18 +151,14 @@
                     android:text="Give your opinion on the beach"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:gravity="center"
-                    >
-
+                    android:gravity="center">
 
                     <RatingBar
                         android:id="@+id/report_RB_review"
@@ -204,32 +174,15 @@
                         android:transformPivotX="0dp"
                         android:transformPivotY="0dp"
                         tools:ignore="SpeakableTextPresentCheck" />
-<!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-
-
-
-
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal"
+            android:orientation="horizontal">
 
-            >
-
-           <!-- <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/ic_fewpeople">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,7 +195,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -251,35 +203,20 @@
                     android:text="How crowded is the beach?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                   <!-- <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="Uncrowded">
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_user_few"
                         android:layout_weight="1.4">
-
                     </ImageView>
 
                     <SeekBar
@@ -295,32 +232,14 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                   <!-- <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Crowded"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_toocrowded"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
-
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -329,14 +248,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-            <!--<com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/ic_temperatures">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -350,7 +261,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -359,37 +269,20 @@
                     android:text="How cold is it?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                 <!--   <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Cold"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_snowflake"
                         android:layout_weight="1.4">
-
                     </ImageView>
 
                         <SeekBar
@@ -404,49 +297,23 @@
                             android:thumbTint="@color/white"
                             android:progressBackgroundTint="@color/water"
                             android:layout_gravity="center" />
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                   <!-- <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Hot"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_sun_black"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
                 </LinearLayout>
             </LinearLayout>
-
-
-
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-         <!--   <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/ic_wind">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -460,7 +327,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -469,37 +335,22 @@
                     android:text="How windy is it?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                   <!-- <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="No wind">
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_no_wind"
                         android:layout_weight="1.4">
-
                     </ImageView>
+
                     <SeekBar
                         android:id="@+id/report_SB_wind"
                         android:layout_width="0dp"
@@ -513,33 +364,14 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                 <!--   <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Windy"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_windy"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -548,14 +380,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-           <!-- <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/accessible">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -569,7 +393,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -578,38 +401,21 @@
                     android:text="Is the beach accessible to everyone?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_no_accessible"
                         android:layout_weight="1.4">
-
                     </ImageView>
-                    <!--<com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="Not accessible">
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
-
 
                     <SeekBar
                         android:id="@+id/report_SB_accessible"
@@ -624,33 +430,14 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-<!--
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Accessible"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_yes_accessible"
                         android:layout_weight="1.4">
-
                     </ImageView>
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -659,14 +446,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-          <!--  <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/ic_jellyfish">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -680,7 +459,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -689,36 +467,22 @@
                     android:text="Are there a lot of jellyfishes?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                 <!--   <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="Not at all">
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_no_jellyfish"
                         android:layout_weight="1.4">
-
                     </ImageView>
+
                     <SeekBar
                         android:id="@+id/report_SB_jellyfish"
                         android:layout_width="0dp"
@@ -732,46 +496,22 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                  <!--  <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Too many"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-                    </com.google.android.material.textview.MaterialTextView>
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_yes_jellyfish"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-           <!-- <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/toilet">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -785,7 +525,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -794,37 +533,22 @@
                     android:text="Is the beach clean and with good facilities?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                 <!--   <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="Very dirty">
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
-
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_cleanliness"
                         android:layout_weight="1.4">
-
                     </ImageView>
+
                     <SeekBar
                         android:id="@+id/report_SB_Hygiene"
                         android:layout_width="0dp"
@@ -838,31 +562,14 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                    <!--<com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Clean"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_dirty"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -871,14 +578,6 @@
             android:orientation="horizontal"
             android:weightSum="6.5">
 
-          <!--  <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/dog">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -904,7 +603,6 @@
 
                 </com.google.android.material.textview.MaterialTextView>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -912,25 +610,12 @@
                     android:orientation="horizontal"
                     android:weightSum="6"
                     >
-<!--
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="No pets allowed">
-
-                    </com.google.android.material.textview.MaterialTextView>
--->
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_no_pet"
                         android:layout_weight="1.4">
-
                     </ImageView>
 
                     <SeekBar
@@ -946,36 +631,14 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                   <!-- <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very friendy towards pets"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_yes_pet"
                         android:layout_weight="1.4">
-
                     </ImageView>
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -983,15 +646,6 @@
             android:layout_height="100dp"
             android:orientation="horizontal"
             android:weightSum="6.5">
-
-          <!--  <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                app:srcCompat="@drawable/ic_wave">
-
-            </com.google.android.material.imageview.ShapeableImageView>
--->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -1006,7 +660,6 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -1015,36 +668,20 @@
                     android:text="Is the sea mostly calm or dangerous?"
                     android:gravity="center"
                     android:fontFamily="@font/poppins">
-
                 </com.google.android.material.textview.MaterialTextView>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="6"
-                    >
-
-                  <!--  <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:text="calm">
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
+                    android:weightSum="6">
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_calm"
                         android:layout_weight="1.4">
-
                     </ImageView>
 
                     <SeekBar
@@ -1060,289 +697,17 @@
                         android:progressBackgroundTint="@color/water"
                         android:layout_gravity="center" />
 
-                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
-
-                  <!--  <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Very Dangerous"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        android:layout_marginVertical="5dp"
-                        >
-
-                    </com.google.android.material.textview.MaterialTextView>
-
--->
-
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_storm"
                         android:layout_weight="1.4">
-
                     </ImageView>
-
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
-
-
         </LinearLayout>
-
-
-
-
-
-
-
     </LinearLayout>
-
     </ScrollView>
-
-
-<!--            <GridLayout-->
-<!--                android:id="@+id/main_GRD_gridLayout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_marginRight="20dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:columnCount="2"-->
-<!--                android:rowCount="3">-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/record_CRD_density"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="0"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="0"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_density"-->
-<!--                            ></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_density"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/report_CRD_wave"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="0"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="1"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_wave"></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_wave"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/record_CRD_jellyfish"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="1"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="0"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_marginTop="50dp"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_jellyfish"></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_jellyfish"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/record_CRD_temperature"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="1"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="1"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_marginTop="50dp"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_temperatures"></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_temperature"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/record_CRD_flag"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="2"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="0"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_marginTop="50dp"-->
-<!--                    android:outlineAmbientShadowColor="@color/black"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_flag"></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_flag"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/report_CRD_wind"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_row="2"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    android:layout_column="1"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_marginTop="50dp"-->
-<!--                    app:cardBackgroundColor="@color/blue_card"-->
-<!--                    app:cardCornerRadius="25dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:src="@drawable/ic_wind"-->
-<!--                            ></ImageView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/report_wind"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/blue_text_card"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"></TextView>-->
-<!--                    </LinearLayout>-->
-<!--                </androidx.cardview.widget.CardView>-->
-<!--            </GridLayout>-->
-
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -1361,14 +726,7 @@
                 app:backgroundTint="@color/sea"
                 android:textColor="@color/white"
                 app:cornerRadius="40dp">
-
             </com.google.android.material.button.MaterialButton>
-
-
         </LinearLayout>
         </LinearLayout>
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

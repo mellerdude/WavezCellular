@@ -5,13 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ShowActivity"
-    android:background="@color/water"
-    >
+    android:background="@color/water">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -36,9 +34,7 @@
                 app:backgroundTint="@color/water"
                 app:icon="@drawable/ic_baseline_arrow_back_24"
                 app:iconTint="@color/white"
-                tools:ignore="MissingConstraints,SpeakableTextPresentCheck"
-                />
-
+                tools:ignore="MissingConstraints,SpeakableTextPresentCheck"/>
 
             <RatingBar
                 android:id="@+id/show_RB_review"
@@ -52,15 +48,15 @@
                 android:progressTint="@color/sand"
                 app:layout_constraintStart_toEndOf="@+id/show_BTN_back"
                 tools:ignore="MissingConstraints" />
-                        <ImageView
-                            android:id="@+id/show_IMG_profile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ic_user"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            tools:ignore="MissingConstraints"
-                            android:contentDescription="@string/report_review" />
 
+            <ImageView
+                android:id="@+id/show_IMG_profile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="MissingConstraints"
+                android:contentDescription="@string/report_review" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -69,9 +65,6 @@
             android:layout_weight="1"
             android:background="@color/water"
             android:orientation="horizontal">
-
-
-
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/show_TXT_nameBeach"
@@ -83,11 +76,9 @@
                 android:textColor="@color/main_title_text"
                 android:textSize="35sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/lobster"
-                />
-
-
+                android:fontFamily="@font/lobster"/>
         </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -108,8 +99,6 @@
             android:textAlignment="center" />
     </LinearLayout>
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -117,7 +106,6 @@
             android:background="@color/water"
             android:gravity="center_horizontal"
             android:orientation="vertical">
-
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/show_TXT_distance"
@@ -155,6 +143,7 @@
                     android:textColor="@color/black"
                     android:textSize="40sp"
                     android:layout_weight="2" />
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/show_IMG_flag"
                     android:layout_width="50dp"
@@ -164,27 +153,13 @@
                     android:layout_gravity="end"
                     android:layout_weight="1"/>
 
-
-                <!--                    <RatingBar-->
-                <!--                        android:id="@+id/userReports_IMG_review1"-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="50dp"-->
-                <!--                        android:numStars="5"-->
-                <!--                        android:rating="5"-->
-                <!--                        android:scaleX=".5"-->
-                <!--                        android:scaleY=".5"-->
-                <!--                        tools:ignore="MissingConstraints"></RatingBar>-->
-
             </LinearLayout>
-
         </LinearLayout>
-
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
-            >
+            android:layout_weight="9">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -192,12 +167,10 @@
             android:background="@color/water"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:gravity="center"
-                >
+                android:gravity="center">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -230,9 +203,7 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -240,9 +211,7 @@
                 android:layout_height="120dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="3"
-
-                >
+                android:weightSum="3">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -274,10 +243,7 @@
                         android:textAlignment="center"
                         android:layout_gravity="bottom"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -309,10 +275,7 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -321,9 +284,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
-                android:weightSum="3"
-
-                >
+                android:weightSum="3">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -354,10 +315,7 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -389,12 +347,8 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -402,9 +356,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
-                android:weightSum="3"
-
-                >
+                android:weightSum="3">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -412,7 +364,6 @@
                     android:background="@drawable/rounded_square_background"
                     android:layout_weight="1.5"
                     android:layout_marginStart="5dp"
-
                     android:padding="10dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -437,10 +388,7 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -472,10 +420,7 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -485,9 +430,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:weightSum="3"
-
-                >
+                android:weightSum="3">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -519,17 +462,11 @@
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/poppins"
                         tools:ignore="RtlCompat" />
-
                 </FrameLayout>
-
-
-
-
-
-
             </LinearLayout>
         </LinearLayout>
         </ScrollView>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -548,8 +485,7 @@
                 app:backgroundTint="@color/sea"
                 app:cornerRadius="40dp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="20dp"
-                />
+                android:layout_marginStart="20dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/show_BTN_create_report"
@@ -563,10 +499,9 @@
                 app:backgroundTint="@color/sea"
                 app:cornerRadius="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="20dp"
-
-                />
+                android:layout_marginEnd="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -588,8 +523,7 @@
                 app:iconGravity="textTop"
                 app:iconSize="45dp"
                 app:iconTint="@null"
-                android:background="@color/transparent"
-                />
+                android:background="@color/transparent"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/show_BTN_moovit"
@@ -604,11 +538,7 @@
                 app:iconSize="45dp"
                 app:iconTint="@null"
                 app:backgroundTint="@color/water"
-                android:background="@color/transparent"
-                />
+                android:background="@color/transparent"/>
         </LinearLayout>
-
     </LinearLayout>
-
-
 </RelativeLayout>

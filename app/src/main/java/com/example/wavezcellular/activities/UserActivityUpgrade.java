@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,9 +38,9 @@ import java.util.List;
 
 public class UserActivityUpgrade extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
-
-    private ImageView profile_IMG_back,profile_IMG_picture,profile_IMG_mail,profile_IMG_location,profile_IMG_favorite;
-    private TextView profile_TXT_name,profile_TXT_mail,profile_TXT_location,profile_TXT_favorite;
+    private ActivityManager activityManager;
+    private ImageView profile_IMG_back,profile_IMG_picture,profile_IMG_mail;
+    private TextView profile_TXT_name,profile_TXT_mail;
     private MaterialButton profile_BTN_changePic,profile_BTN_changeName,profile_BTN_signout;
 
 
@@ -58,7 +59,7 @@ public class UserActivityUpgrade extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_upgrade);
-
+        activityManager = new ActivityManager(this);
         bundle = getIntent().getExtras();
         if (bundle == null) {
             bundle = new Bundle();
@@ -68,16 +69,12 @@ public class UserActivityUpgrade extends AppCompatActivity {
         getCurrentUsersData();
     }
 
-
     private void createListener() {
 
         profile_IMG_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserActivityUpgrade.this, HomeActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(HomeActivity.class,bundle);
             }
         });
 
@@ -86,9 +83,7 @@ public class UserActivityUpgrade extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(UserActivityUpgrade.this, WelcomeActivity.class);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(WelcomeActivity.class,bundle);
             }
         });
 
@@ -120,9 +115,7 @@ public class UserActivityUpgrade extends AppCompatActivity {
         profile_BTN_changePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserActivityUpgrade.this, UserPictureActivity.class);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(UserPictureActivity.class,bundle);
             }
         });
     }
@@ -169,7 +162,6 @@ public class UserActivityUpgrade extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     public void saveData() {
@@ -187,19 +179,12 @@ public class UserActivityUpgrade extends AppCompatActivity {
 
     }
 
-
     private void findViews() {
         profile_IMG_back = findViewById(R.id.profile_IMG_back);
         profile_IMG_picture = findViewById(R.id.profile_IMG_picture);
         profile_IMG_mail = findViewById(R.id.profile_IMG_mail);
-        //profile_IMG_location = findViewById(R.id.profile_IMG_location);
-        //profile_IMG_favorite = findViewById(R.id.profile_IMG_favorite);
-
         profile_TXT_name = findViewById(R.id.profile_TXT_name);
         profile_TXT_mail = findViewById(R.id.profile_TXT_mail);
-        //profile_TXT_location = findViewById(R.id.profile_TXT_location);
-        //profile_TXT_favorite = findViewById(R.id.profile_TXT_favorite);
-
         profile_BTN_changePic = findViewById(R.id.profile_BTN_changePic);
         profile_BTN_changeName = findViewById(R.id.profile_BTN_changeName);
         profile_BTN_signout = findViewById(R.id.profile_BTN_signout);

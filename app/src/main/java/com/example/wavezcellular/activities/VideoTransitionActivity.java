@@ -85,8 +85,6 @@ public class VideoTransitionActivity extends AppCompatActivity {
         // Start the next activity
         Intent intent = new Intent(VideoTransitionActivity.this, MenuActivity.class);
         startActivity(intent);
-
-
         // Finish the current activity
         finish();
     }
