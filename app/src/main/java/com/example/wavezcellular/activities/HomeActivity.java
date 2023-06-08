@@ -61,16 +61,13 @@ import java.util.Map;
  *      2. go to the userActivity - clicking on the profile pictures.
  */
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, BeachListener {
-    private final int DEF_VAL = 50;
     private final double DEF_REVIEW_VAL = 3.0;
     private ActivityManager activityManager;
     String value = "Distance";
     private ImageView home_IMG_profile;
     private MaterialButton home_BTN_switch;
-    private MaterialButton home_BTN_name;
+    private MaterialButton home_BTN_name, home_TXT_result;
     private MaterialButton home_BTN_back;
-    private MaterialButton[] home_BTN_searches;
-    private MaterialButton[] home_BTN_results;
     private RecyclerView home_RecyclerView_beachData;
     private EditText home_EditTXT_byName;
     private Spinner home_SP_listOfBeaches;
@@ -211,17 +208,19 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     LatLng user = new LatLng(userLat, userLon);
                     for (Map.Entry<String, HashMap<String, HashMap<String, Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("Data").get("name");
+                        home_TXT_result.setText("km");
+                        beachName = (String) set.getValue().get("Data").get("name");
                         LatLng loc = new LatLng(getDouble(set.getValue().get("Data").get("latitude")), getDouble(set.getValue().get("Data").get("longitude")));
                         Double val = getDistance(user, loc);
                         beachesSort.put(beachName, val);
                     }
                 } else if (category.equalsIgnoreCase("name")) {
+                    home_TXT_result.setText("Score");
                     ArrayList<String> nameList = new ArrayList<>();
                     ArrayList<String> sortnameList = new ArrayList<>();
                     for (Map.Entry<String, HashMap<String, HashMap<String, Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("Data").get("name");
+                        beachName = (String) set.getValue().get("Data").get("name");
                         nameList.add(beachName);
                     }
                     if (home_EditTXT_byName.getText().length() > 0) {
@@ -232,10 +231,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         createBeaches(category, nameList);
                     }
                 } else {
+                    home_TXT_result.setText("Score");
                     //If value is not distance or name
                     for (Map.Entry<String, HashMap<String, HashMap<String, Object>>> set :
                             beaches.entrySet()) {
-                        String beachName = (String) set.getValue().get("Data").get("name");
+                        beachName = (String) set.getValue().get("Data").get("name");
                         double val = DEF_REVIEW_VAL;
                         if (set.getValue().get("Reports") != null) {
                             val = calcAVG(set.getValue().get("Reports"), category);
@@ -323,9 +323,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         String upper = mode.toUpperCase();
         if (upper.equals("PROFILE")) {
             activityManager.startActivity(UserActivityUpgrade.class,bundle);
-        } else if (upper.equals("REPORT")) {
-            bundle.putString("BEACH_NAME", beachName);
-            activityManager.startActivity(ReportActivity.class,bundle);
         } else if (upper.contains("BEACH")) {
             bundle.putString("BEACH_NAME", mode);
             activityManager.startActivity(ShowActivity.class,bundle);
@@ -352,6 +349,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         home_RecyclerView_beachData = findViewById(R.id.home_RecyclerView_rec);
         home_EditTXT_byName = findViewById(R.id.home_EditTXT_byName);
         home_BTN_name = findViewById(R.id.home_BTN_name);
+        home_TXT_result = findViewById(R.id.home_TXT_result);
     }
 
     @Override
