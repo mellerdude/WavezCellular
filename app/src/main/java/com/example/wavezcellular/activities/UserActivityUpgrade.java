@@ -35,6 +35,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * UserActivity
+ * Activity to show the stats of the user. Enables the user to sign out or change stats about himself,
+ * including name, and profile picture by going to the UserPictureActivity
+ * Also enables the user to go back to HomeActivity
+ */
 public class UserActivityUpgrade extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -127,6 +133,7 @@ public class UserActivityUpgrade extends AppCompatActivity {
         });
     }
 
+    //get data about the user to show
     public void getCurrentUsersData() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser == null) {

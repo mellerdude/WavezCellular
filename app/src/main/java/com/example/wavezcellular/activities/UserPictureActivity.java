@@ -25,6 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * UserPictureActivity
+ * Activity to enable the user to change his profile picture
+ */
 public class UserPictureActivity extends AppCompatActivity implements PhotoListener {
     private static final int NUMBER_IMAGES = 20;
     private RecyclerView userPhoto_RecyclerView_photos;
