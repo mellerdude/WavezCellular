@@ -89,15 +89,9 @@ public class ReportActivityTest {
         // Perform actions on the report activity
         activityScenario.onActivity(reportActivity -> {
             // Call the testAction method on the main application thread if needed
-            //reportActivity.runOnUiThread(reportActivity::testAction);
+            reportActivity.runOnUiThread(reportActivity::testAction);
         });
 
-        // Wait for the report to be submitted
-        try {
-            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         // Enter a valid report comment
         String comment = "TestReportSubmit";
         Espresso.onView(ViewMatchers.withId(R.id.report_EditTXT_comment))
@@ -106,19 +100,14 @@ public class ReportActivityTest {
         // Simulate pressing the "Back" button
         Espresso.onView(ViewMatchers.isRoot())
                 .perform(ViewActions.pressBack());
-        // Wait for the report to be submitted
-        try {
-            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // Submit the report
         Espresso.onView(ViewMatchers.withId(R.id.report_BTN_submit))
                 .perform(ViewActions.click());
 
-        // Wait for the report to be submitted
+        // Wait for the activity to change
         try {
-            Thread.sleep(2000); // Delay of 2 seconds (adjust as needed)
+            Thread.sleep(2000); // Delay of 2 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -131,7 +120,7 @@ public class ReportActivityTest {
         boolean commentFound = false;
         while (!commentFound) {
             try {
-                Thread.sleep(1000); // Delay of 1 second (adjust as needed)
+                Thread.sleep(1000); // Delay of 1 second
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
