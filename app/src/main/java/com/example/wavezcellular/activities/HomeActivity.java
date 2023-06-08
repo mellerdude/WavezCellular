@@ -51,6 +51,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * HomeActivity
+ * Activity responsible for displaying a list of beaches based on preferences of the user
+ * Based on the user requirements the activity can show the results of a category ascending/descending.
+ * The activity allows the user to switch to a detailed report of a beach he chooses.
+ * The user can also:
+ *      1. go back to menuActivity - clicking back
+ *      2. go to the userActivity - clicking on the profile pictures.
+ */
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, BeachListener {
     private final int DEF_VAL = 50;
     private final double DEF_REVIEW_VAL = 3.0;
@@ -121,6 +130,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         showProfilePic();
     }
 
+    //display the right profile picture for the user
     private void showProfilePic() {
         if(isGuest){
             home_IMG_profile.setImageResource(R.drawable.ic_user);
@@ -146,7 +156,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-
+    //create the list of beaches sorted by names
     private void createBeaches(ArrayList<Map.Entry<String, Double>> list) {
         if (orderBy == 0)
             Collections.reverse(list);
@@ -161,6 +171,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         createBeachRec(beachesSort);
     }
 
+
+    //create the list of beaches sorted by parameter
     private void createBeaches(String parameter, ArrayList<String> list) {
         if (orderBy == 0)
             Collections.reverse(list);
@@ -173,26 +185,29 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         createBeachRec(beachesSort);
     }
 
+    //after the list is created put it in a recycleView to show the user
     private void createBeachRec(ArrayList<Map.Entry<String, String>> list) {
         home_RecyclerView_beachData.setLayoutManager(new LinearLayoutManager(this));
         home_RecyclerView_beachData.setAdapter(new BeachHomeAdapter(getApplicationContext(), list, this ));
     }
 
+    //an interface function so when clicked on a beach switch to that beach
     @Override
     public void onBeachClicked(String entry) {
         Log.d("myTag", "Im here");
         replaceActivity(entry);
     }
 
-    private void getBeaches(String value) {
+    //For each beach, calculate the average value of the category given, and put it in that beach's data table.
+    //Then get the values of each beach from the database Data table to get all the average ratings for each category.
+    //and compare them to the others thus creating a list of beaches compared by category.
+    private void getBeaches(String category) {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 HashMap<String, Double> beachesSort = new HashMap<>();
                 HashMap<String, HashMap<String, HashMap<String, Object>>> beaches = (HashMap) dataSnapshot.getValue(Object.class);
-                if (value.equalsIgnoreCase("distance")) {
+                if (category.equalsIgnoreCase("distance")) {
                     LatLng user = new LatLng(userLat, userLon);
                     for (Map.Entry<String, HashMap<String, HashMap<String, Object>>> set :
                             beaches.entrySet()) {
@@ -201,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         Double val = getDistance(user, loc);
                         beachesSort.put(beachName, val);
                     }
-                } else if (value.equalsIgnoreCase("name")) {
+                } else if (category.equalsIgnoreCase("name")) {
                     ArrayList<String> nameList = new ArrayList<>();
                     ArrayList<String> sortnameList = new ArrayList<>();
                     for (Map.Entry<String, HashMap<String, HashMap<String, Object>>> set :
@@ -211,10 +226,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                     if (home_EditTXT_byName.getText().length() > 0) {
                         sortnameList = (ArrayList<String>) findSimilarStrings(nameList, home_EditTXT_byName.getText().toString());
-                        createBeaches(value, sortnameList);
+                        createBeaches(category, sortnameList);
                     } else {
                         Collections.sort(nameList);
-                        createBeaches(value, nameList);
+                        createBeaches(category, nameList);
                     }
                 } else {
                     //If value is not distance or name
@@ -223,13 +238,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         String beachName = (String) set.getValue().get("Data").get("name");
                         double val = DEF_REVIEW_VAL;
                         if (set.getValue().get("Reports") != null) {
-                            val = calcAVG(set.getValue().get("Reports"), value);
-                            myRef.child(beachName).child("Data").child(value).setValue(val);
+                            val = calcAVG(set.getValue().get("Reports"), category);
+                            myRef.child(beachName).child("Data").child(category).setValue(val);
                         }
                         beachesSort.put(beachName, val);
                     }
                 }
-                if (!value.equalsIgnoreCase("name")) {
+                if (!category.equalsIgnoreCase("name")) {
                     ArrayList<Map.Entry<String, Double>> list = new ArrayList<>(beachesSort.entrySet());
 
                     Comparator<Map.Entry<String, Double>> valueComparator = new Comparator<Map.Entry<String, Double>>() {
@@ -250,14 +265,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-    private double calcAVG(HashMap<String, Object> reports, String value) {
+    //calc the average value of this category from all reports in a single beach
+    private double calcAVG(HashMap<String, Object> reports, String category) {
         double sum = 0;
         int numObjects = 0;
         for (Map.Entry<String, Object> set :
                 reports.entrySet()) {
             HashMap<String, Object> entry = (HashMap<String, Object>) set.getValue();
             numObjects++;
-            double val = getDouble(entry.get(value));
+            double val = getDouble(entry.get(category));
             sum += val;
         }
         return sum / numObjects;
@@ -289,6 +305,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         home_BTN_name.setOnClickListener(view -> getBeaches("name"));
     }
 
+
+    //Switch order of the list of beaches by category
     private void switchMode() {
         if (orderBy == 0)
             orderBy = 1;
@@ -303,40 +321,19 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void replaceActivity(String mode) {
         String upper = mode.toUpperCase();
-        //Intent intent;
         if (upper.equals("PROFILE")) {
             activityManager.startActivity(UserActivityUpgrade.class,bundle);
-            //intent = new Intent(this, UserActivityUpgrade.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-            //finish();
         } else if (upper.equals("REPORT")) {
             bundle.putString("BEACH_NAME", beachName);
             activityManager.startActivity(ReportActivity.class,bundle);
-           //intent = new Intent(this, ReportActivity.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-            //finish();
         } else if (upper.contains("BEACH")) {
             bundle.putString("BEACH_NAME", mode);
             activityManager.startActivity(ShowActivity.class,bundle);
-            //intent = new Intent(this, ShowActivity.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-           // finish();
         } else if (upper.equals("MENU")) {
             activityManager.startActivity(MenuActivity.class,bundle);
-            //intent = new Intent(this, MenuActivity.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-            //finish();
         }else {
             bundle.putString("LOGIN_STATE", "login");
             activityManager.startActivity(WelcomeActivity.class,bundle);
-            //intent = new Intent(this, WelcomeActivity.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-            //finish();
         }
     }
 
@@ -394,6 +391,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         return (SphericalUtil.computeDistanceBetween(location1, location2) / 1000);
     }
 
+
+    //rank the values of string to how close they are to the target
     public List<String> findSimilarStrings(ArrayList<String> strings, String target) {
         List<String> similarStrings = new ArrayList<>();
 
@@ -415,6 +414,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         return similarStrings;
     }
 
+    //calculate how similar two strings are
     private int getSimilarityScore(String s1, String s2) {
         // Compute the similarity score between two strings using the compareTo() method
         int score = 0;

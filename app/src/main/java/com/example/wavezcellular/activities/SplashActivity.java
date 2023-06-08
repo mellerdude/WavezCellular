@@ -20,6 +20,11 @@ import androidx.core.app.ActivityCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.wavezcellular.R;
 
+/**
+ * SplashActivity
+ * Animates a view sliding down from the top of the screen along an arc path.
+ * After the animation finishes, checks for permission and starts the MenuActivity if permission is granted.
+ */
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private final int ANIM_DURATION = 2000;
@@ -55,10 +60,7 @@ public class SplashActivity extends AppCompatActivity {
         showViewSlideDown(logo);
     }
 
-    /**
-     * Animates a view sliding down from the top of the screen along an arc path.
-     * After the animation finishes, checks for permission and starts the MenuActivity if permission is granted.
-     */
+
     public void showViewSlideDown(final View v) {
         v.setVisibility(View.VISIBLE);
         Path path = new Path();

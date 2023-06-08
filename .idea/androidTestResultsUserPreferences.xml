@@ -68,6 +68,7 @@
                   <entry key="6fe7fc36" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="OnePlus&#10; ONEPLUS A6013" value="120" />
+                  <entry key="Pixel_3a_API_33_arm64-v8a" value="120" />
                   <entry key="Pixel_5_API_30" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="adb-6fe7fc36-tjUTls._adb-tls-connect._tcp" value="120" />
@@ -182,6 +183,7 @@
                   <entry key="6fe7fc36" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="OnePlus&#10; ONEPLUS A6013" value="120" />
+                  <entry key="Pixel_3a_API_33_arm64-v8a" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -196,6 +198,19 @@
                   <entry key="6fe7fc36" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="OnePlus&#10; ONEPLUS A6013" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="599445552">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_3a_API_33_arm64-v8a" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -238,6 +253,7 @@
                   <entry key="6fe7fc36" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="OnePlus&#10; ONEPLUS A6013" value="120" />
+                  <entry key="Pixel_3a_API_33_arm64-v8a" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -252,6 +268,7 @@
                   <entry key="6fe7fc36" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="OnePlus&#10; ONEPLUS A6013" value="120" />
+                  <entry key="Pixel_3a_API_33_arm64-v8a" value="120" />
                   <entry key="Pixel_5_API_30" value="120" />
                   <entry key="Tests" value="360" />
                 </map>

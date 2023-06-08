@@ -39,7 +39,14 @@ import com.google.maps.android.SphericalUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * MenuActivity
+ * Activity responsible for displaying all the options for the user after he opens the app
+ * The activity first finds the closest beach to the user and allows him to view details on it.
+ * The user can also:
+ *      1. see more beaches by clicking "Search Another"
+ *      2. Login or sign up by clicking on the proper buttons.
+ */
 public class MenuActivity extends AppCompatActivity implements testActionsListener {
     private static final int MAXDISTANCE = 100000;
 
@@ -95,6 +102,7 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
         });
     }
 
+    //using location services, the menuActivity finds the closest beach to the user from all beaches
     private void findNearestBeach(double lati, double longi) {
         LatLng user = new LatLng(lati, longi);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -176,6 +184,8 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
         menu_TXT_Distance = findViewById(R.id.menu_TXT_Distance);
     }
 
+
+    //check for permission from the user if it isn't granted
     private void checkPermission() {
         int fineLocationStatus = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int coarseLocationStatus = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);

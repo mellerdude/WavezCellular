@@ -50,6 +50,19 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * ShowActivity
+ * Activity responsible for showing the user all data on the beach
+ * The activity shows the user data on each category,
+ *      and depending on the value a text describing that category at that beach
+ * The activity also shows the user data on how the sky looks, the temperature and the flag in that beach.
+ * The activity enables the user to pick either Waze or Moovit as transportation helpers on their way to that beach.
+ * The user can also:
+ *      1. go to see reports on that beach
+ *      2. create a report himself if he is a signed in user
+ *      3. go back to homeActivity to select another beach
+ *      4. go to the userActivity
+ */
 public class ShowActivity extends AppCompatActivity implements testActionsListener {
     private final double HIGH_VALUE = 3.5;
     private final double LOW_VALUE = 1.5;
@@ -145,6 +158,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         }
     }
 
+    //show data on the beach, formal and non formal stored in the beach's data table in the DB
+    //also shows formal data using API on OpenWeatherMap to get -> windspeed, temperature and sky description.
     private void showInfo() {
         setBeachName(show_TXT_nameBeach, show_TXT_nameCity, BeachName);
         myRef.child(BeachName).child("Data").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -263,9 +278,9 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             viewCity.setText("" + city);
     }
 
+    //show different icons for different sky descriptions
     private void configureSkyIcon(String skyDesc){
         skyDesc = skyDesc.toUpperCase();
-        // Set the weather icon based on the weather description
         if (skyDesc.contains("CLEAR SKY") || skyDesc.contains("FEW CLOUDS")) {
             show_IMG_weather.setImageResource(R.drawable.ic_sun);
         } else if (skyDesc.contains("SCATTERED CLOUDS") || skyDesc.contains("BROKEN CLOUDS") || skyDesc.contains("OVERCAST CLOUDS")) {
@@ -278,8 +293,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
             show_IMG_weather.setImageResource(R.drawable.ic_sun);
     }
 
+    //show different icons for different windspeeds
     private void configureDangerIcon(double windSpeed){
-        // Set the weather icon based on the weather description
         if (windSpeed <= 8) {
             show_IMG_flag.setImageResource(R.drawable.ic_whiteflag);
         } else if (windSpeed > 8 && windSpeed <= 15) {
@@ -331,6 +346,8 @@ public class ShowActivity extends AppCompatActivity implements testActionsListen
         });
     }
 
+    //if a non signed in user clicked on "Create Report" prompt that he must sign in first
+    //and enable him to do so
     private void clickOnCreateReports() {
          if(isGuest){ // user who are not registered cannot report
             AlertDialog.Builder builder = new AlertDialog.Builder(ShowActivity.this);

@@ -103,12 +103,12 @@ public class MenuActivityTest {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.home_LOGO_wavez)).check(matches(isDisplayed()));
+        onView(withId(R.id.home_BTN_back)).check(matches(isDisplayed()));
 
         onView(withId(R.id.home_IMG_profile)).perform(ViewActions.click());
         // Introduce a delay to allow the application to process the navigation
 
-        onView(withId(R.id.profile_BTN_change)).check(matches(isDisplayed()));
+        onView(withId(R.id.profile_IMG_picture)).check(matches(isDisplayed()));
         // Close the ActivityScenario
         activityScenario.close();
     }
