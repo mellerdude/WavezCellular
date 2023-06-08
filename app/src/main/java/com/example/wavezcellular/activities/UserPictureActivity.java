@@ -14,6 +14,7 @@ import com.example.wavezcellular.Interfaces.PhotoListener;
 import com.example.wavezcellular.R;
 import com.example.wavezcellular.adapters_holders.UserPhotoAdapter;
 import com.example.wavezcellular.adapters_holders.UserReportAdapter;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.UserReport;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 public class UserPictureActivity extends AppCompatActivity implements PhotoListener {
     private static final int NUMBER_IMAGES = 20;
+    private ActivityManager activityManager;
     private RecyclerView userPhoto_RecyclerView_photos;
     private MaterialButton userPhoto_BTN_back, userPhoto_BTN_select;
     private MaterialTextView userPhoto_TXT_headline;
@@ -46,11 +48,11 @@ public class UserPictureActivity extends AppCompatActivity implements PhotoListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_picture);
+        activityManager = new ActivityManager(this);
         bundle = getIntent().getExtras();
         if (bundle == null) {
             bundle = new Bundle();
         }
-
         findViews();
         initUser();
         createArrayOfPhotos();
@@ -102,9 +104,10 @@ public class UserPictureActivity extends AppCompatActivity implements PhotoListe
     }
 
     public void returnToProfile(){
-        Intent intent = new Intent(UserPictureActivity.this, UserActivityUpgrade.class);
+        activityManager.startActivity(UserActivityUpgrade.class,bundle);
+        /*Intent intent = new Intent(UserPictureActivity.this, UserActivityUpgrade.class);
         startActivity(intent);
-        finish();
+        finish();*/
 
     }
 

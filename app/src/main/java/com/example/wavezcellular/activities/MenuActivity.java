@@ -131,19 +131,15 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
                 }
                 String format = String.format("%.01f", minDistance);
                 distance = "Beach is " + format + "km from you";
-
                 menu_TXT_Distance.setText(distance);
                 menu_BTN_beachFound.setText(closestBeach);
                 BeachName = closestBeach;
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
 
     private void setListeners() {
@@ -168,23 +164,15 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
 
     private void replaceActivityShow() {
         if(beachFound && BeachName != null) {
-            Intent intent;
             bundle.putString("BEACH_NAME", BeachName);
-            intent = new Intent(this, ShowActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
+            activityManager.startActivity(ShowActivity.class,bundle);
         }else{
             Toast.makeText(getApplicationContext(), "Still searching, please wait", Toast.LENGTH_SHORT).show();
         }
     }
     private void replaceActivityWelcome(String state) {
-        Intent intent;
         bundle.putString("LOGIN_STATE", state);
-        intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
+        activityManager.startActivity(WelcomeActivity.class,bundle);
     }
 
     private void findViews() {
@@ -208,16 +196,10 @@ public class MenuActivity extends AppCompatActivity implements testActionsListen
         } else {
             hasPremission = true;
         }
-
     }
-
     private double getDistance(LatLng location1, LatLng location2) {
         return (SphericalUtil.computeDistanceBetween(location1, location2) / 1000);
     }
-
-
-
-
     @Override
     public void testAction() {
         BeachName = "Bugrashov beach Tel Aviv";

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wavezcellular.Interfaces.testActionsListener;
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
  *      go back to the ShowActivity of that beach
  */
 public class ReportActivity extends AppCompatActivity implements testActionsListener {
+    private ActivityManager activityManager;
     private TextView report_TXT_nameBeach;
     private MaterialButton report_BTN_back, report_BTN_submit;
     private RatingBar report_RB_review;
@@ -58,6 +60,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_upgrade);
+        activityManager = new ActivityManager(this);
         bundle = getIntent().getExtras();
         if (bundle != null) {
             BeachName = bundle.getString("BEACH_NAME");
@@ -65,7 +68,6 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
             this.bundle = new Bundle();
             BeachName = "";
         }
-
         findViews();
         getCurrentUsersData();
         createListeners();
@@ -103,19 +105,13 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
         report_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, ShowActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(ShowActivity.class,bundle);
             }
         });
         report_IMG_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, UserActivityUpgrade.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(UserActivityUpgrade.class,bundle);
             }
         });
 
@@ -123,10 +119,7 @@ public class ReportActivity extends AppCompatActivity implements testActionsList
             @Override
             public void onClick(View view) {
                 addSubmiterData();
-                Intent intent = new Intent(ReportActivity.this, ShowActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(ShowActivity.class,bundle);
             }
         });
     }

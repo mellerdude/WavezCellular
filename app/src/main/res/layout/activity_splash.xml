@@ -7,7 +7,6 @@
     tools:context=".activities.SplashActivity"
     android:background="@color/white">
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie2"
         android:layout_width="wrap_content"
@@ -18,30 +17,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/seagulls"></com.airbnb.lottie.LottieAnimationView>
+        app:lottie_rawRes="@raw/seagulls">
+
+    </com.airbnb.lottie.LottieAnimationView>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/pattern__3_"
+        android:background="@drawable/ic_yellow_wave"
         android:rotation="180"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </ImageView>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/pattern__4_"
+        android:background="@drawable/ic_blue_wave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.473">
     </ImageView>
-
-
 
     <ImageView
         android:id="@+id/logo"

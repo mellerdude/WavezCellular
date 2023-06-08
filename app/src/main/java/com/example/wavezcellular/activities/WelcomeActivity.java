@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wavezcellular.R;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,8 +35,8 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class WelcomeActivity extends AppCompatActivity {
 
+    private ActivityManager activityManager;
     private FirebaseAuth mAuth;
-
     private MaterialTextView welcome_TXT_title;
     private EditText welcome_EDT_name, welcome_EDT_email, welcome_EDT_password;
     private MaterialButton /*welcome_BTN_signIn, welcome_BTN_signUp,*/ welcome_BTN_forgotPassword, welcome_BTN_enterApp, welcome_BTN_back,
@@ -45,6 +46,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        activityManager = new ActivityManager(this);
         mAuth = FirebaseAuth.getInstance();
         bundle = getIntent().getExtras();
         String state ;
@@ -212,20 +214,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 resetPassword();
             }
         });
-        /*welcome_BTN_signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createEnterMode("signin");
-            }
-        });
-
-        welcome_BTN_signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createEnterMode("signup");
-            }
-        });*/
-
         welcome_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,8 +238,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     private void openingMode() {
-       // welcome_BTN_signIn.setVisibility(View.VISIBLE);
-       // welcome_BTN_signUp.setVisibility(View.VISIBLE);
         welcome_EDT_email.setVisibility(View.INVISIBLE);
         welcome_EDT_password.setVisibility(View.INVISIBLE);
         welcome_BTN_enterApp.setVisibility(View.INVISIBLE);
@@ -262,8 +248,6 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void createEnterMode(String mode) {
-       // welcome_BTN_signIn.setVisibility(View.INVISIBLE);
-       // welcome_BTN_signUp.setVisibility(View.INVISIBLE);
         welcome_EDT_email.setVisibility(View.VISIBLE);
         welcome_EDT_password.setVisibility(View.VISIBLE);
         welcome_BTN_enterApp.setVisibility(View.VISIBLE);
@@ -280,30 +264,24 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+
+
+    private void replaceActivityEnter() {
+        activityManager.startActivity(HomeActivity.class,bundle);
+    }
+
+    private void replaceActivityBack() {
+        activityManager.startActivity(MenuActivity.class,bundle);
+    }
     private void findViews() {
         welcome_TXT_title = findViewById(R.id.welcome_TXT_title);
         welcome_EDT_name = findViewById(R.id.welcome_EDT_name);
         welcome_EDT_email = findViewById(R.id.welcome_EDT_email);
         welcome_EDT_password = findViewById(R.id.welcome_EDT_password);
-       // welcome_BTN_signIn = findViewById(R.id.welcome_BTN_signIn);
-       // welcome_BTN_signUp = findViewById(R.id.welcome_BTN_signUp);
         welcome_BTN_forgotPassword = findViewById(R.id.welcome_BTN_forgotPassword);
         welcome_BTN_enterApp = findViewById(R.id.welcome_BTN_enterApp);
         welcome_BTN_back = findViewById(R.id.welcome_BTN_back);
         welcome_BTN_registerApp = findViewById(R.id.welcome_BTN_registerApp);
-    }
-
-    private void replaceActivityEnter() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
-    }
-
-    private void replaceActivityBack() {
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wavezcellular.R;
 import com.example.wavezcellular.adapters_holders.UserReportAdapter;
+import com.example.wavezcellular.utils.ActivityManager;
 import com.example.wavezcellular.utils.UserReport;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -40,6 +41,7 @@ import java.util.Map;
  */
 public class UserReportsActivity extends AppCompatActivity {
     private final int MAX_NUM = 5;
+    private ActivityManager activityManager;
     private TextView userReports_TXT_nameBeach;
     private MaterialButton userReports_BTN_back, userReports_BTN_report;
     private RecyclerView userReports_RecycleView_reports;
@@ -58,6 +60,7 @@ public class UserReportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reports);
+        activityManager = new ActivityManager(this);
         usersPhotos = new HashMap<>();
         bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -71,7 +74,6 @@ public class UserReportsActivity extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference("Beaches").child(BeachName).child("Reports");
         userRef = FirebaseDatabase.getInstance().getReference("Users");
 
-
         findViews();
         createListeners();
         ShowActivity.setBeachName((MaterialTextView) userReports_TXT_nameBeach, null , BeachName);
@@ -83,11 +85,8 @@ public class UserReportsActivity extends AppCompatActivity {
         userReports_BTN_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserReportsActivity.this, ShowActivity.class);
                 bundle.putString("BEACH_NAME", BeachName);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                activityManager.startActivity(ShowActivity.class,bundle);
             }
         });
 
@@ -96,10 +95,6 @@ public class UserReportsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 clickOnReports();
-                /*Intent intent = new Intent(UserReportsActivity.this, ReportActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();*/
             }
         });
     }
@@ -116,7 +111,8 @@ public class UserReportsActivity extends AppCompatActivity {
             });
             builder.setNegativeButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 // When the user click yes button then app will take it to the register/login page
-                replaceActivity("Welcome");
+                bundle.putString("LOGIN_STATE", "login");
+                activityManager.startActivity( WelcomeActivity.class,bundle);
 
             });
 
@@ -125,7 +121,8 @@ public class UserReportsActivity extends AppCompatActivity {
             // Show the Alert Dialog box
             alertDialog.show();
         }else{
-            replaceActivity("Report");
+            bundle.putString("BEACH_NAME", BeachName);
+            activityManager.startActivity(ReportActivity.class,bundle);
         }
     }
 
@@ -184,36 +181,6 @@ public class UserReportsActivity extends AppCompatActivity {
         userReports_RecycleView_reports.setAdapter(new UserReportAdapter(getApplicationContext(), list));
     }
 
-    private void replaceActivity(String mode) {
-        Intent intent;
-        if (mode.equals("Profile")) {
-            intent = new Intent(this, UserActivityUpgrade.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-        if (mode.equals("Report")) {
-            intent = new Intent(this, ReportActivity.class);
-            bundle.putString("BEACH_NAME", BeachName);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-        if (mode.equals("Home")) {
-            intent = new Intent(this, HomeActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-
-        if (mode.equals("Welcome")) {
-            intent = new Intent(this, WelcomeActivity.class);
-            bundle.putString("LOGIN_STATE", "login");
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        }
-    }
 
     private void findViews() {
         userReports_BTN_back = findViewById(R.id.userReports_BTN_back);
@@ -222,6 +189,4 @@ public class UserReportsActivity extends AppCompatActivity {
         userReports_TXT_headline = findViewById(R.id.userReports_TXT_headline);
         userReports_RecycleView_reports = findViewById(R.id.userReports_RecyclerView_reports);
     }
-
-
 }

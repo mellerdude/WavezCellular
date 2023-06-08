@@ -11,10 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:orientation="vertical"
-        >
-
-
+        android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/welcome_BTN_back"
@@ -25,7 +22,6 @@
             app:icon="@drawable/ic_baseline_arrow_back_24"
             app:iconTint="@color/white"
             tools:ignore="SpeakableTextPresentCheck" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +34,6 @@
         android:layout_marginTop="120dp"
         android:orientation="vertical">
 
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/welcome_TXT_title"
             android:layout_width="wrap_content"
@@ -48,11 +43,8 @@
             android:textColor="@color/main_title_text"
             android:textSize="45sp"
             android:textStyle="bold"
-            android:fontFamily="@font/lobster"
-            >
-
+            android:fontFamily="@font/lobster">
         </com.google.android.material.textview.MaterialTextView>
-
 
         <LinearLayout
             android:id="@+id/welcome_LinLay_signin"
@@ -77,9 +69,7 @@
                 android:textStyle="bold"
                 android:visibility="visible"
                 tools:ignore="TextContrastCheck">
-
             </EditText>
-
 
             <EditText
                 android:id="@+id/welcome_EDT_email"
@@ -97,7 +87,6 @@
                 android:textStyle="bold"
                 android:visibility="visible"
                 tools:ignore="TextContrastCheck">
-
             </EditText>
 
             <EditText
@@ -116,41 +105,8 @@
                 android:textStyle="bold"
                 android:visibility="visible"
                 tools:ignore="TextContrastCheck"></EditText>
-
         </LinearLayout>
 
-
-        <!--<com.google.android.material.button.MaterialButton
-            android:id="@+id/welcome_BTN_signIn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/sea"
-            android:text="@string/welcome_signin"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:cornerRadius="40dp"
-            android:visibility="visible">
-
-
-        </com.google.android.material.button.MaterialButton>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/welcome_BTN_signUp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/sea"
-            android:text="@string/welcome_signup"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:cornerRadius="40dp"
-            android:visibility="visible">
-
-        </com.google.android.material.button.MaterialButton>
--->
         <LinearLayout
             android:id="@+id/welcome_LinLay_finalAction"
             android:layout_width="wrap_content"
@@ -176,8 +132,6 @@
                     app:cornerRadius="40dp"
                     android:fontFamily="@font/poppins"
                     android:visibility="invisible">
-
-
                 </com.google.android.material.button.MaterialButton>
 
                 <com.google.android.material.button.MaterialButton
@@ -196,6 +150,7 @@
                     app:cornerRadius="40dp"
                     tools:ignore="TextContrastCheck"></com.google.android.material.button.MaterialButton>
             </FrameLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome_BTN_forgotPassword"
                 android:layout_width="wrap_content"
@@ -209,9 +164,7 @@
                 android:textStyle="bold"
                 app:cornerRadius="40dp"
                 android:fontFamily="@font/poppins"
-                android:visibility="invisible"
-                >
-
+                android:visibility="invisible">
             </com.google.android.material.button.MaterialButton>
         </LinearLayout>
     </LinearLayout>
